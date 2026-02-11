@@ -1,0 +1,3746 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هاكاثون الوقف - ابتكار واستدامة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #2767c4;
+            --primary-orange: #e5761a;
+            --dark-blue: #1a4a8a;
+            --light-blue: #4a8fd4;
+            --gold: #e5761a;
+            --bg-light: #F8FAFE;
+            --bg-dark: #0D1B33;
+            --text-dark: #1a1a2e;
+            --text-light: #6B7B8D;
+            --white: #FFFFFF;
+            --gradient-blue: linear-gradient(135deg, #1a4a8a 0%, #2767c4 50%, #4a8fd4 100%);
+            --gradient-orange: linear-gradient(135deg, #c45f10 0%, #e5761a 50%, #f09030 100%);
+            --shadow-sm: 0 2px 8px rgba(43, 94, 167, 0.08);
+            --shadow-md: 0 8px 30px rgba(43, 94, 167, 0.12);
+            --shadow-lg: 0 20px 60px rgba(43, 94, 167, 0.15);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-blue); border-radius: 4px; }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(43, 94, 167, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 30px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 50px;
+        }
+
+        .nav-logo-text {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1.3;
+        }
+
+        .nav-logo-text span {
+            color: var(--primary-orange);
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(43, 94, 167, 0.08);
+            color: var(--primary-blue);
+        }
+
+        .nav-cta {
+            background: var(--gradient-blue) !important;
+            color: var(--white) !important;
+            font-weight: 700 !important;
+            padding: 10px 24px !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(43, 94, 167, 0.3);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            background: var(--bg-dark);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse 80% 60% at 20% 80%, rgba(43, 94, 167, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 30%, rgba(232, 135, 43, 0.2) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(74, 143, 212, 0.15) 0%, transparent 60%);
+        }
+
+        /* Animated dots */
+        .hero-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .hero-dot {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatDot 8s ease-in-out infinite;
+        }
+
+        @keyframes floatDot {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.2); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 120px 30px 80px;
+            max-width: 900px;
+        }
+
+        .hero-logo {
+            width: 200px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(232, 135, 43, 0.15);
+            border: 1px solid rgba(232, 135, 43, 0.3);
+            color: var(--gold);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            animation: fadeInUp 1s 0.2s ease both;
+        }
+
+        .hero h1 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.3;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s 0.4s ease both;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-orange);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 650px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 1s 0.6s ease both;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s 0.8s ease both;
+        }
+
+        .btn-primary {
+            background: var(--gradient-orange);
+            color: var(--white);
+            border: none;
+            padding: 16px 40px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Tajawal', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(232, 135, 43, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            padding: 14px 36px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Tajawal', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Hero Stats */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+            animation: fadeInUp 1s 1s ease both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .number {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .hero-stat .label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Countdown Timer */
+        .countdown-wrap { margin-top: 32px; text-align: center; }
+        .countdown-wrap.hidden { display: none; }
+        .countdown-label { font-size: 0.95rem; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .countdown-label i { color: var(--gold); }
+        .countdown-label.open { color: #4ade80; }
+        .countdown-boxes { display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .countdown-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 14px 20px; min-width: 80px; text-align: center; }
+        .countdown-num { font-family: 'Cairo', sans-serif; font-size: 2rem; font-weight: 900; color: white; line-height: 1; }
+        .countdown-unit { font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px; font-weight: 600; }
+        .countdown-sep { font-family: 'Cairo', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--gold); margin-bottom: 16px; }
+        @media(max-width:768px) { .countdown-box { min-width: 60px; padding: 10px 12px; } .countdown-num { font-size: 1.4rem; } .countdown-sep { font-size: 1.2rem; } }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SECTION COMMON ===== */
+        .section {
+            padding: 100px 30px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(43, 94, 167, 0.08);
+            color: var(--primary-blue);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== TECH TICKER ===== */
+        .tech-ticker {
+            background: var(--white);
+            border-top: 1px solid rgba(43, 94, 167, 0.08);
+            border-bottom: 1px solid rgba(43, 94, 167, 0.08);
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .ticker-track {
+            display: flex;
+            gap: 40px;
+            animation: ticker 25s linear infinite;
+            width: max-content;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .ticker-item i {
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== CHALLENGES ===== */
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .challenge-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 32px;
+            border: 1px solid rgba(43, 94, 167, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .challenge-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-orange);
+            transition: width 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .challenge-card:hover::before {
+            width: 6px;
+        }
+
+        .challenge-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-blue);
+            color: var(--white);
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+
+        .challenge-card h3 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .challenge-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .challenge-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .challenge-tag {
+            background: rgba(43, 94, 167, 0.06);
+            color: var(--primary-blue);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .challenge-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-orange);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: gap 0.3s ease;
+        }
+
+        .challenge-btn:hover {
+            gap: 14px;
+        }
+
+        /* ===== JOURNEY / TIMELINE ===== */
+        .journey-section {
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        .journey-section .section-title {
+            color: var(--white);
+        }
+
+        .journey-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .journey-section .section-tag {
+            background: rgba(232, 135, 43, 0.15);
+            color: var(--gold);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            right: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary-blue), var(--primary-orange));
+            border-radius: 3px;
+            transform: translateX(50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            right: 50%;
+            transform: translateX(50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary-orange);
+            border-radius: 50%;
+            border: 4px solid var(--bg-dark);
+            box-shadow: 0 0 0 4px var(--primary-orange);
+            z-index: 2;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius);
+            padding: 28px;
+            width: calc(50% - 40px);
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-day {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .timeline-title {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .timeline-desc {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .timeline-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--light-blue);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* ===== WHY PARTICIPATE ===== */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .why-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 36px;
+            text-align: center;
+            border: 1px solid rgba(43, 94, 167, 0.06);
+            transition: all 0.4s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .why-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: rgba(43, 94, 167, 0.06);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+
+        .why-card:hover .why-icon {
+            background: var(--gradient-blue);
+            color: var(--white);
+        }
+
+        .why-card h3 {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .why-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-section {
+            background: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about-text h3 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 16px;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .about-objectives {
+            counter-reset: objective;
+        }
+
+        .about-objective {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .about-objective::before {
+            counter-increment: objective;
+            content: counter(objective);
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-orange);
+            color: var(--white);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .about-objective p {
+            margin: 0;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* ===== PRIZES ===== */
+        .prizes-section {
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prizes-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(245, 166, 35, 0.1) 0%, transparent 70%);
+        }
+
+        .prizes-section .section-title { color: var(--white); }
+        .prizes-section .section-subtitle { color: rgba(255,255,255,0.5); }
+        .prizes-section .section-tag { background: rgba(232, 135, 43, 0.15); color: var(--gold); }
+
+        .prizes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .prize-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .prize-card.featured {
+            background: rgba(232, 135, 43, 0.08);
+            border-color: rgba(232, 135, 43, 0.3);
+            transform: scale(1.05);
+        }
+
+        .prize-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(232, 135, 43, 0.4);
+        }
+
+        .prize-card.featured:hover {
+            transform: scale(1.05) translateY(-6px);
+        }
+
+        .prize-place {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .prize-amount {
+            font-family: 'Cairo', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .prize-currency {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .prize-features {
+            list-style: none;
+            text-align: right;
+        }
+
+        .prize-features li {
+            color: rgba(255, 255, 255, 0.6);
+            padding: 6px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prize-features li i {
+            color: var(--gold);
+            font-size: 0.8rem;
+        }
+
+        .special-prizes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .special-prize {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .special-prize i {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .special-prize h4 {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .special-prize p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border: 1px solid rgba(43, 94, 167, 0.06);
+            border-radius: 14px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 28px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--primary-blue);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--primary-orange);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 28px 20px;
+            color: var(--text-light);
+            line-height: 1.9;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        /* ===== ORGANIZERS / PARTNERS ===== */
+        .organizers-section {
+            background: var(--white);
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .partner-card {
+            background: var(--bg-light);
+            border: 1px solid rgba(39, 103, 196, 0.06);
+            border-radius: var(--radius);
+            padding: 36px 24px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(39, 103, 196, 0.15);
+        }
+
+        .partner-card.featured-partner {
+            background: var(--white);
+            border: 2px solid rgba(39, 103, 196, 0.1);
+        }
+
+        .partner-logo-wrap {
+            margin-bottom: 18px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .partner-logo-img {
+            max-height: 90px;
+            max-width: 180px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+        .partner-logo-img.dakliya-logo {
+            max-height: 80px;
+            background: #1a1a1a;
+            padding: 10px 16px;
+            border-radius: 12px;
+        }
+
+        .partner-card:hover .partner-logo-img {
+            transform: scale(1.05);
+        }
+
+        .partner-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(39, 103, 196, 0.08) 0%, rgba(229, 118, 26, 0.08) 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover .partner-icon {
+            background: var(--gradient-blue);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+
+        .partner-card h4 {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+
+        .partner-card p {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-dark);
+            padding: 60px 30px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand img {
+            height: 60px;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--gold);
+        }
+
+        .footer-col .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .footer-col .contact-item i {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-orange);
+            color: var(--white);
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: var(--gradient-blue);
+            padding: 80px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(232, 135, 43, 0.2) 0%, transparent 70%);
+        }
+
+        .cta-section h2 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .cta-section .btn-primary {
+            position: relative;
+        }
+
+        /* ===== REGISTRATION MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(13, 27, 51, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-container {
+            background: var(--white);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 720px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(40px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(39, 103, 196, 0.06);
+            color: var(--text-light);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .modal-close:hover {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .modal-header {
+            text-align: center;
+            padding: 40px 40px 24px;
+            border-bottom: 1px solid rgba(39, 103, 196, 0.06);
+        }
+
+        .modal-logo {
+            height: 80px;
+            margin-bottom: 16px;
+        }
+
+        .modal-header h2 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .modal-header p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .modal-body {
+            padding: 30px 40px 40px;
+        }
+
+        /* Progress Steps */
+        .form-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 36px;
+            gap: 0;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(39, 103, 196, 0.08);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            transition: all 0.4s ease;
+        }
+
+        .progress-step.active .step-circle {
+            background: var(--gradient-blue);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(39, 103, 196, 0.3);
+        }
+
+        .progress-step.completed .step-circle {
+            background: var(--gradient-orange);
+            color: var(--white);
+        }
+
+        .progress-step span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .progress-step.active span {
+            color: var(--primary-blue);
+        }
+
+        .progress-line {
+            width: 80px;
+            height: 3px;
+            background: rgba(39, 103, 196, 0.1);
+            border-radius: 3px;
+            margin: 0 16px;
+            margin-bottom: 28px;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .form-label.required::after {
+            content: ' *';
+            color: #ef4444;
+        }
+
+        .input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrap i {
+            position: absolute;
+            right: 16px;
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .textarea-wrap i {
+            top: 16px;
+            align-self: flex-start;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 2px solid rgba(39, 103, 196, 0.1);
+            border-radius: 12px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            transition: all 0.3s ease;
+            outline: none;
+            direction: rtl;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-blue);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(39, 103, 196, 0.08);
+        }
+
+        .form-input::placeholder {
+            color: #b0bec5;
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .form-select {
+            appearance: none;
+            cursor: pointer;
+            padding-left: 40px;
+        }
+
+        .select-wrap::after {
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 16px;
+            color: var(--text-light);
+            pointer-events: none;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.8;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0 16px;
+            gap: 12px;
+        }
+
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(39, 103, 196, 0.1);
+        }
+
+        .form-divider span {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            white-space: nowrap;
+        }
+
+        .form-divider span i {
+            margin-left: 6px;
+        }
+
+        /* File Upload */
+        .file-upload-area {
+            border: 2px dashed rgba(39, 103, 196, 0.2);
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--primary-blue);
+            background: rgba(39, 103, 196, 0.03);
+        }
+
+        .file-upload-icon {
+            font-size: 2.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .file-upload-text strong {
+            display: block;
+            color: var(--primary-blue);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .file-upload-text span {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .file-preview {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(39, 103, 196, 0.04);
+            border: 1px solid rgba(39, 103, 196, 0.1);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-top: 10px;
+        }
+
+        .file-preview i {
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+        }
+
+        .file-preview span {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .file-remove {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .file-remove:hover {
+            background: #fee2e2;
+        }
+
+        /* Form Buttons */
+        .form-btn-next,
+        .form-btn-submit {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .form-btn-next {
+            background: var(--gradient-blue);
+            color: var(--white);
+        }
+
+        .form-btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(39, 103, 196, 0.3);
+        }
+
+        .form-btn-submit {
+            background: var(--gradient-orange);
+            color: var(--white);
+            flex: 1;
+        }
+
+        .form-btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(229, 118, 26, 0.3);
+        }
+
+        .form-btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .form-btn-back {
+            padding: 16px 24px;
+            border: 2px solid rgba(39, 103, 196, 0.15);
+            border-radius: 14px;
+            background: var(--white);
+            color: var(--text-dark);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .form-btn-back:hover {
+            background: var(--bg-light);
+        }
+
+        .form-btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        /* Success Modal */
+        .success-container {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .success-animation {
+            margin-bottom: 20px;
+        }
+
+        .success-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            animation: successPop 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+        }
+
+        .success-circle i {
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        @keyframes successPop {
+            from { transform: scale(0); }
+            50% { transform: scale(1.15); }
+            to { transform: scale(1); }
+        }
+
+        .success-logo {
+            height: 60px;
+            margin-bottom: 16px;
+        }
+
+        .success-container h2 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .success-container p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .success-details {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            text-align: right;
+        }
+
+        .success-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(39, 103, 196, 0.06);
+            font-size: 0.9rem;
+        }
+
+        .success-detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .success-detail-item i {
+            color: var(--primary-orange);
+            width: 20px;
+            text-align: center;
+        }
+
+        .success-detail-item strong {
+            color: var(--text-dark);
+        }
+
+        .success-detail-item span {
+            color: var(--text-light);
+            margin-right: auto;
+        }
+
+        .success-btn {
+            background: var(--gradient-blue);
+            color: var(--white);
+            border: none;
+            padding: 14px 36px;
+            border-radius: 14px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .success-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(39, 103, 196, 0.3);
+        }
+
+        /* Loading spinner */
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .btn-loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Shake animation for errors */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .shake {
+            animation: shake 0.4s ease;
+        }
+
+        @media (max-width: 768px) {
+            .modal-body { padding: 20px; }
+            .modal-header { padding: 30px 20px 20px; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-btn-group { flex-direction: column-reverse; }
+            .success-container { padding: 30px 20px; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .prizes-grid { grid-template-columns: 1fr; }
+            .prize-card.featured { transform: none; }
+            .prize-card.featured:hover { transform: translateY(-6px); }
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-container { grid-template-columns: 1fr 1fr; }
+            .partners-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+            
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background: var(--white);
+                padding: 20px;
+                box-shadow: var(--shadow-lg);
+                border-radius: 0 0 var(--radius) var(--radius);
+            }
+
+            .hero h1 { font-size: 2.2rem; }
+            .hero-stats { gap: 30px; }
+            .hero-stat .number { font-size: 1.8rem; }
+            .section-title { font-size: 1.8rem; }
+            .challenges-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; }
+            .special-prizes { grid-template-columns: 1fr; }
+            .partners-grid { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr; }
+
+            .timeline::before { right: 20px; transform: none; }
+            .timeline-dot { right: 20px; transform: none; }
+            .timeline-item, .timeline-item:nth-child(even) {
+                flex-direction: column;
+                padding-right: 50px;
+            }
+            .timeline-content { width: 100%; }
+        }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Section animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-logo">
+            <img src="assets/waqf-logo.png" alt="هاكاثون الوقف">
+            <div class="nav-logo-text">
+                هاكاثون الوقف
+                <span>ابتكار واستدامة</span>
+            </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#challenges">المحاور</a></li>
+            <li><a href="#journey">مسار المشارك</a></li>
+            <li><a href="#about">عن الهاكاثون</a></li>
+            <li><a href="#prizes">الجوائز</a></li>
+            <li><a href="#faq">الأسئلة الشائعة</a></li>
+            <li><a href="#" class="nav-cta" onclick="openModal(); return false;">تسجيل الدخول</a></li>
+        </ul>
+        <button class="mobile-toggle" onclick="toggleNav()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+    <div class="hero-dots">
+        <div class="hero-dot" style="width:8px;height:8px;background:var(--primary-blue);top:15%;left:10%;animation-delay:0s;"></div>
+        <div class="hero-dot" style="width:12px;height:12px;background:var(--primary-orange);top:25%;left:80%;animation-delay:1s;"></div>
+        <div class="hero-dot" style="width:6px;height:6px;background:var(--light-blue);top:60%;left:15%;animation-delay:2s;"></div>
+        <div class="hero-dot" style="width:10px;height:10px;background:var(--gold);top:70%;left:75%;animation-delay:3s;"></div>
+        <div class="hero-dot" style="width:8px;height:8px;background:var(--primary-blue);top:40%;left:90%;animation-delay:4s;"></div>
+        <div class="hero-dot" style="width:14px;height:14px;background:var(--primary-orange);top:80%;left:50%;animation-delay:1.5s;"></div>
+        <div class="hero-dot" style="width:6px;height:6px;background:var(--light-blue);top:10%;left:50%;animation-delay:2.5s;"></div>
+        <div class="hero-dot" style="width:10px;height:10px;background:var(--gold);top:50%;left:30%;animation-delay:3.5s;"></div>
+    </div>
+    <div class="hero-content">
+        <img src="assets/waqf-logo.png" alt="هاكاثون الوقف" class="hero-logo">
+        <div class="hero-badge">
+            <i class="fas fa-mosque" style="margin-left:8px;"></i>
+            محافظة الداخلية - ابتكار واستدامة
+        </div>
+        <h1>
+            هاكاثون <span class="highlight">الوقف</span>
+            <br>ابتكار الحلول الوقفية المستدامة
+        </h1>
+        <p>
+            مبادرة مبتكرة من إدارة الأوقاف والشؤون الدينية بمحافظة الداخلية لإشراك طلاب الجامعات والشباب المبدعين
+            <br>في تطوير حلول تقنية لتحسين إدارة الأوقاف وتعزيز الاستدامة المالية
+        </p>
+        <div class="hero-btns">
+            <a href="#" class="btn-primary" onclick="openModal(); return false;">
+                <i class="fas fa-rocket"></i>
+                سجّل الآن
+            </a>
+            <a href="#challenges" class="btn-secondary">
+                <i class="fas fa-lightbulb"></i>
+                استكشف التحديات
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="number">3</div>
+                <div class="label">محاور رئيسية</div>
+            </div>
+            <div class="hero-stat">
+                <div class="number">10</div>
+                <div class="label">فرق متنافسة</div>
+            </div>
+            <div class="hero-stat">
+                <div class="number">5,500</div>
+                <div class="label">ر.ع جوائز</div>
+            </div>
+        </div>
+        <!-- Countdown Timer -->
+        <div class="countdown-wrap" id="countdownWrap">
+            <div class="countdown-label" id="countdownLabel">
+                <i class="fas fa-clock"></i> الوقت المتبقي لفتح باب التسجيل
+            </div>
+            <div class="countdown-boxes">
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cdDays">00</div>
+                    <div class="countdown-unit">يوم</div>
+                </div>
+                <div class="countdown-sep">:</div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cdHours">00</div>
+                    <div class="countdown-unit">ساعة</div>
+                </div>
+                <div class="countdown-sep">:</div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cdMins">00</div>
+                    <div class="countdown-unit">دقيقة</div>
+                </div>
+                <div class="countdown-sep">:</div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cdSecs">00</div>
+                    <div class="countdown-unit">ثانية</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TECH TICKER ===== -->
+<div class="tech-ticker">
+    <div class="ticker-track">
+        <div class="ticker-item"><i class="fas fa-brain"></i> ذكاء اصطناعي</div>
+        <div class="ticker-item"><i class="fas fa-link"></i> بلوك تشين</div>
+        <div class="ticker-item"><i class="fas fa-mobile-alt"></i> تطبيقات ذكية</div>
+        <div class="ticker-item"><i class="fas fa-chart-line"></i> تحليل البيانات</div>
+        <div class="ticker-item"><i class="fas fa-globe"></i> إنترنت الأشياء</div>
+        <div class="ticker-item"><i class="fas fa-map-marked-alt"></i> نظم المعلومات الجغرافية</div>
+        <div class="ticker-item"><i class="fas fa-hand-holding-heart"></i> الأوقاف الرقمية</div>
+        <div class="ticker-item"><i class="fas fa-seedling"></i> الاستدامة</div>
+        <!-- Duplicate for seamless loop -->
+        <div class="ticker-item"><i class="fas fa-brain"></i> ذكاء اصطناعي</div>
+        <div class="ticker-item"><i class="fas fa-link"></i> بلوك تشين</div>
+        <div class="ticker-item"><i class="fas fa-mobile-alt"></i> تطبيقات ذكية</div>
+        <div class="ticker-item"><i class="fas fa-chart-line"></i> تحليل البيانات</div>
+        <div class="ticker-item"><i class="fas fa-globe"></i> إنترنت الأشياء</div>
+        <div class="ticker-item"><i class="fas fa-map-marked-alt"></i> نظم المعلومات الجغرافية</div>
+        <div class="ticker-item"><i class="fas fa-hand-holding-heart"></i> الأوقاف الرقمية</div>
+        <div class="ticker-item"><i class="fas fa-seedling"></i> الاستدامة</div>
+    </div>
+</div>
+
+<!-- ===== CHALLENGES ===== -->
+<section class="section" id="challenges">
+    <div class="section-container">
+        <div class="section-header reveal">
+            <div class="section-tag">المحاور الرئيسية</div>
+            <h2 class="section-title">محاور الهاكاثون الثلاثة</h2>
+            <p class="section-subtitle">اختر المحور الذي يناسب إبداعك وقدم حلولاً مبتكرة تعزز دور الوقف</p>
+        </div>
+        <div class="challenges-grid">
+            <!-- Axis 1: Digital Waqf -->
+            <div class="challenge-card reveal">
+                <div class="challenge-number">1</div>
+                <h3>الوقف الرقمي</h3>
+                <div style="color:var(--primary-orange);font-weight:700;font-size:0.95rem;margin-bottom:12px;">(من الوثيقة إلى التطبيق)</div>
+                <p>ابتكار منصات ذكية لإدارة وتوثيق الأوقاف، وتوظيف التقنيات الحديثة مثل الذكاء الاصطناعي والبلوك تشين لضمان الشفافية والاستدامة.</p>
+                <div class="challenge-tags">
+                    <span class="challenge-tag">ذكاء اصطناعي</span>
+                    <span class="challenge-tag">بلوك تشين</span>
+                    <span class="challenge-tag">منصات رقمية</span>
+                    <span class="challenge-tag">شفافية</span>
+                </div>
+                <a href="#" class="challenge-btn" onclick="openModal(); return false;">
+                    سجّل في هذا المحور
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            <!-- Axis 2: Knowledge Waqf -->
+            <div class="challenge-card reveal">
+                <div class="challenge-number">2</div>
+                <h3>الوقف المعرفي</h3>
+                <div style="color:var(--primary-orange);font-weight:700;font-size:0.95rem;margin-bottom:12px;">(علم ينتفع به)</div>
+                <p>منصات ومشاريع لنشر المعرفة، دعم البحث العلمي والابتكار، المنح الدراسية وتمكين الكفاءات العلمية في خدمة المجتمع.</p>
+                <div class="challenge-tags">
+                    <span class="challenge-tag">تعليم إلكتروني</span>
+                    <span class="challenge-tag">بحث علمي</span>
+                    <span class="challenge-tag">منح دراسية</span>
+                    <span class="challenge-tag">تمكين</span>
+                </div>
+                <a href="#" class="challenge-btn" onclick="openModal(); return false;">
+                    سجّل في هذا المحور
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            <!-- Axis 3: Investment Waqf -->
+            <div class="challenge-card reveal">
+                <div class="challenge-number">3</div>
+                <h3>الوقف الاستثماري</h3>
+                <div style="color:var(--primary-orange);font-weight:700;font-size:0.95rem;margin-bottom:12px;">(أصول تنمو بالخير)</div>
+                <p>حلول جديدة لاستثمار الأوقاف بشكل إبداعي يحقق عوائد مالية مستدامة ويخدم أغراض البر والتنمية المجتمعية.</p>
+                <div class="challenge-tags">
+                    <span class="challenge-tag">تقنيات مالية</span>
+                    <span class="challenge-tag">استثمار مستدام</span>
+                    <span class="challenge-tag">نماذج أعمال</span>
+                    <span class="challenge-tag">عوائد</span>
+                </div>
+                <a href="#" class="challenge-btn" onclick="openModal(); return false;">
+                    سجّل في هذا المحور
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== JOURNEY ===== -->
+<section class="section journey-section" id="journey">
+    <div class="section-container">
+        <div class="section-header reveal">
+            <div class="section-tag">التوقيت الزمني</div>
+            <h2 class="section-title">التوقيت الزمني للهاكاثون الأول</h2>
+            <p class="section-subtitle">مسار متكامل من الإعلان وحتى الحفل الختامي</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-day">5 فبراير 2026</div>
+                    <div class="timeline-title">الإعلان التشويقي</div>
+                    <div class="timeline-desc">نشر إعلان الهاكاثون عبر المنصة الرسمية وحسابات الجهات المنظمة ووسائل التواصل الاجتماعي</div>
+                    <div class="timeline-time">
+                        <i class="fas fa-bullhorn"></i>
+                        انطلاقة الهاكاثون
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-day">15 فبراير 2026</div>
+                    <div class="timeline-title">الحفل الرسمي وإطلاق هوية الهاكاثون</div>
+                    <div class="timeline-desc">تدشين هُوية الهاكاثون والجلسة التمهيدية للتعرف على محاور التحدي وآلية التحكيم</div>
+                    <div class="timeline-time">
+                        <i class="fas fa-map-marker-alt"></i>
+                        الموقع: جامعة نزوى
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-day">1 مارس 2026</div>
+                    <div class="timeline-title">إطلاق الحملة التثقيفية</div>
+                    <div class="timeline-desc">حملة تثقيفية تستهدف طلبة جامعة نزوى وأكاديمية السلطان قابوس لعلوم الشرطة</div>
+                    <div class="timeline-time">
+                        <i class="fas fa-map-marker-alt"></i>
+                        الموقع: جامعة نزوى
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-day">3 مارس 2026</div>
+                    <div class="timeline-title">تثقيف الطلبة</div>
+                    <div class="timeline-desc">استهداف طلبة جامعة التقنية والعلوم التطبيقية وكلية عُمان الصحية (فرع الداخلية)</div>
+                    <div class="timeline-time">
+                        <i class="fas fa-map-marker-alt"></i>
+                        الموقع: جامعة التقنية والعلوم التطبيقية
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-day">1 - 15 مارس 2026</div>
+                    <div class="timeline-title">فتح باب التسجيل</div>
+                    <div class="timeline-desc">إطلاق رابط المنصة الخاصة بالهاكاثون وفتح باب التسجيل للفرق المشاركة</div>
+                    <div class="timeline-time">
+                        <i class="fas fa-laptop"></i>
+                        التسجيل عبر المنصة
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-day">16 - 30 مارس 2026</div>
+                    <div class="timeline-title">فرز المشاريع وتصفية الفرق</div>
+                    <div class="timeline-desc">فرز المشاريع المشاركة وتصفية الفرق للنهائيات وإبلاغ المشاركين بقبول مشاريعهم</div>
+                    <div class="timeline-time">
+                        <i class="fas fa-filter"></i>
+                        اختيار أفضل الأفكار
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-day">5 - 7 إبريل 2026</div>
+                    <div class="timeline-title">تدريب الفرق المتأهلة</div>
+                    <div class="timeline-desc">يومان تدريب على تطوير النماذج الأولية باستخدام Figma + اليوم الثالث عرض المشاريع على لجنة التحكيم</div>
+                    <div class="timeline-time">
+                        <i class="fas fa-map-marker-alt"></i>
+                        الموقع: متحف عُمان عبر الزمان
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-day">9 إبريل 2026</div>
+                    <div class="timeline-title">الحفل الختامي وإعلان النتائج</div>
+                    <div class="timeline-desc">تكريم الفائزين واستعراض المشاريع الفائزة أمام الحضور والمستثمرين</div>
+                    <div class="timeline-time">
+                        <i class="fas fa-map-marker-alt"></i>
+                        الموقع: متحف عُمان عبر الزمان
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== WHY PARTICIPATE ===== -->
+<section class="section" id="why">
+    <div class="section-container">
+        <div class="section-header reveal">
+            <div class="section-tag">لماذا تشارك؟</div>
+            <h2 class="section-title">فرص استثنائية تنتظرك</h2>
+            <p class="section-subtitle">انضم لتجربة فريدة تجمع بين الابتكار والأثر المجتمعي</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-card reveal">
+                <div class="why-icon"><i class="fas fa-trophy"></i></div>
+                <h3>جوائز قيمة</h3>
+                <p>جوائز مالية للعشر فرق الأوائل تبدأ من 100 ريال وتصل إلى 1,000 ريال</p>
+            </div>
+            <div class="why-card reveal">
+                <div class="why-icon"><i class="fas fa-laptop-code"></i></div>
+                <h3>تدريب متخصص</h3>
+                <p>تدريب على تطوير النماذج الأولية باستخدام أدوات احترافية مثل Figma</p>
+            </div>
+            <div class="why-card reveal">
+                <div class="why-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <h3>فرص احتضان</h3>
+                <p>متابعة تطوير المشاريع الفائزة مع شركاء النجاح بعد الهاكاثون</p>
+            </div>
+            <div class="why-card reveal">
+                <div class="why-icon"><i class="fas fa-users-cog"></i></div>
+                <h3>إرشاد الخبراء</h3>
+                <p>جلسات إرشادية مع خبراء ومتخصصين في التقنية والأوقاف</p>
+            </div>
+            <div class="why-card reveal">
+                <div class="why-icon"><i class="fas fa-museum"></i></div>
+                <h3>بيئة ملهمة</h3>
+                <p>التنفيذ في متحف عُمان عبر الزمان - بيئة استثنائية تحفز الإبداع</p>
+            </div>
+            <div class="why-card reveal">
+                <div class="why-icon"><i class="fas fa-award"></i></div>
+                <h3>تقييم احترافي</h3>
+                <p>معايير تقييم شاملة: الابتكار، الأثر المجتمعي، القابلية للتنفيذ، تحليل SWOT</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="section about-section" id="about">
+    <div class="section-container">
+        <div class="section-header reveal">
+            <div class="section-tag">عن الفعالية</div>
+            <h2 class="section-title">هاكاثون الوقف - ابتكار واستدامة</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-text reveal">
+                <h3>عن الهاكاثون</h3>
+                <p>
+                    هاكاثون الوقف الأول (ابتكار - استدامة) هو مبادرة مبتكرة من إدارة الأوقاف والشؤون الدينية بمحافظة الداخلية
+                    تهدف إلى إشراك طلاب الجامعات والشباب والمبدعين ورواد التكنولوجيا المالية في تطوير حلول تقنية جديدة
+                    لتحسين إدارة الأوقاف وتعزيز الاستدامة المالية باستخدام الذكاء الاصطناعي، البلوكشين، والتقنيات المالية الحديثة.
+                </p>
+                <h3 style="margin-top:24px;">الرؤية</h3>
+                <p>
+                    إيجاد بيئة محفزة للابتكار في مجال الأوقاف بما يواكب متطلبات العصر،
+                    ويحول التحديات إلى فرص تنموية مستدامة.
+                </p>
+                <h3 style="margin-top:24px;">الرسالة</h3>
+                <p>
+                    تمكين الشباب والمبتكرين من تقديم حلول عملية وتقنية تعزز كفاءة واستدامة الأوقاف،
+                    وتربطها باحتياجات المجتمع التنموية.
+                </p>
+                <h3 style="margin-top:24px;"><i class="fas fa-map-marker-alt" style="color:var(--primary-orange);margin-left:8px;"></i>مكان التنفيذ</h3>
+                <p>متحف عُمان عبر الزمان - محافظة الداخلية</p>
+                <h3 style="margin-top:24px;"><i class="fas fa-users" style="color:var(--primary-orange);margin-left:8px;"></i>الفئة المستهدفة</h3>
+                <p>طلبة جامعة نزوى، جامعة التقنية والعلوم التطبيقية، أكاديمية السلطان قابوس لعلوم الشرطة، كلية عُمان الصحية (فرع الداخلية)</p>
+            </div>
+            <div class="reveal">
+                <h3 style="font-family:'Cairo',sans-serif;font-size:1.4rem;font-weight:800;color:var(--primary-blue);margin-bottom:20px;">أهداف الهاكاثون</h3>
+                <div class="about-objectives">
+                    <div class="about-objective">
+                        <p>تحفيز الابتكار التقني في قطاع الأوقاف</p>
+                    </div>
+                    <div class="about-objective">
+                        <p>تطوير حلول رقمية لرفع كفاءة إدارة الأموال الوقفية</p>
+                    </div>
+                    <div class="about-objective">
+                        <p>تمكين طلاب الجامعات من صناعة الأفكار لمشاريع قابلة للتطبيق</p>
+                    </div>
+                    <div class="about-objective">
+                        <p>تقديم نماذج أعمال جديدة تساهم في تنويع موارد الأوقاف واستدامتها</p>
+                    </div>
+                    <div class="about-objective">
+                        <p>تمكين المؤسسات الوقفية من تحويل أفكارهم إلى مشاريع قابلة للتطبيق</p>
+                    </div>
+                </div>
+
+                <h3 style="font-family:'Cairo',sans-serif;font-size:1.4rem;font-weight:800;color:var(--primary-blue);margin:28px 0 20px;">المخرجات المتوقعة</h3>
+                <div class="about-objectives">
+                    <div class="about-objective">
+                        <p>حلول رقمية مبتكرة في المجالات الوقفية</p>
+                    </div>
+                    <div class="about-objective">
+                        <p>نشر ثقافة الابتكار وريادة الأعمال في قطاع الأوقاف</p>
+                    </div>
+                    <div class="about-objective">
+                        <p>بناء قاعدة بيانات لمشاريع قابلة للتطوير</p>
+                    </div>
+                    <div class="about-objective">
+                        <p>تعزيز صورة الوزارة كجهة رائدة في دمج التقنية مع خدمة الدين والمجتمع</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PRIZES ===== -->
+<section class="section prizes-section" id="prizes">
+    <div class="section-container">
+        <div class="section-header reveal">
+            <div class="section-tag">الجوائز والتكريم</div>
+            <h2 class="section-title">نقدر التميز ونكافئ الإبداع</h2>
+            <p class="section-subtitle">جوائز قيمة للفرق المتميزة التي تقدم أفضل الحلول الوقفية المبتكرة</p>
+        </div>
+        <div class="prizes-grid reveal">
+            <div class="prize-card">
+                <div class="prize-place">المركز الثاني</div>
+                <div class="prize-amount">900</div>
+                <div class="prize-currency">ريال عماني</div>
+                <ul class="prize-features">
+                    <li><i class="fas fa-check-circle"></i> درع تذكاري</li>
+                    <li><i class="fas fa-check-circle"></i> دعم لتطوير المشروع</li>
+                    <li><i class="fas fa-check-circle"></i> فرصة عرض على المستثمرين</li>
+                </ul>
+            </div>
+            <div class="prize-card featured">
+                <div class="prize-place"><i class="fas fa-crown" style="margin-left:8px;"></i> المركز الأول</div>
+                <div class="prize-amount">1,000</div>
+                <div class="prize-currency">ريال عماني</div>
+                <ul class="prize-features">
+                    <li><i class="fas fa-check-circle"></i> درع تذكاري</li>
+                    <li><i class="fas fa-check-circle"></i> دعم لتطوير المشروع</li>
+                    <li><i class="fas fa-check-circle"></i> فرصة عرض على المستثمرين</li>
+                    <li><i class="fas fa-check-circle"></i> تغطية إعلامية</li>
+                </ul>
+            </div>
+            <div class="prize-card">
+                <div class="prize-place">المركز الثالث</div>
+                <div class="prize-amount">800</div>
+                <div class="prize-currency">ريال عماني</div>
+                <ul class="prize-features">
+                    <li><i class="fas fa-check-circle"></i> درع تذكاري</li>
+                    <li><i class="fas fa-check-circle"></i> دعم لتطوير المشروع</li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align:center;margin-bottom:30px;">
+            <div style="display:inline-block;background:rgba(229,118,26,0.1);border:1px solid rgba(229,118,26,0.2);border-radius:12px;padding:14px 28px;color:var(--gold);font-weight:700;font-size:0.95rem;">
+                <i class="fas fa-info-circle" style="margin-left:8px;"></i>
+                الجوائز للعشر فرق تبدأ من 100 ريال وتنتهي بـ 1,000 ريال
+            </div>
+        </div>
+        <div class="special-prizes reveal">
+            <div class="special-prize">
+                <i class="fas fa-lightbulb"></i>
+                <h4>جائزة الابتكار</h4>
+                <p>للمشروع الأكثر إبداعاً وفكرة فريدة</p>
+            </div>
+            <div class="special-prize">
+                <i class="fas fa-heart"></i>
+                <h4>جائزة التأثير المجتمعي</h4>
+                <p>للمشروع ذو الأثر الأكبر على المجتمع</p>
+            </div>
+            <div class="special-prize">
+                <i class="fas fa-code"></i>
+                <h4>جائزة التميز التقني</h4>
+                <p>للمشروع الأفضل من الناحية التقنية</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section" id="faq">
+    <div class="section-container">
+        <div class="section-header reveal">
+            <div class="section-tag">الأسئلة الشائعة</div>
+            <h2 class="section-title">إجابات على تساؤلاتك</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>من يمكنه المشاركة في الهاكاثون؟</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        يمكن لجميع المهتمين بالتقنية والابتكار من طلاب وخريجين ومحترفين المشاركة. يجب أن يكون المشاركون فوق 18 عاماً ولديهم اهتمام بتطوير حلول تقنية للتحديات الوقفية المطروحة.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>ما هو حجم الفريق المطلوب؟</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        يجب أن يتكون كل فريق من 3 إلى 5 أعضاء. يمكنك التسجيل كفريق كامل أو كفرد ليتم دمجك مع آخرين في يوم الفعالية.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>هل يتطلب التسجيل رسوماً؟</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        لا، التسجيل والمشاركة في الهاكاثون مجاني تماماً. سيتم توفير جميع المرافق والدعم اللازم للمشاركين.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>ما هي التقنيات المسموح باستخدامها؟</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        يمكن للفرق استخدام أي لغات برمجة، أطر عمل، أو تقنيات يفضلونها. يُشجع على استخدام التقنيات الحديثة والمفتوحة المصدر مثل الذكاء الاصطناعي والبلوك تشين وإنترنت الأشياء.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>كيف سيتم تقييم المشاريع؟</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        سيتم تقييم المشاريع من قبل لجنة تحكيم متخصصة بناءً على: الابتكار، الجدوى التقنية، التأثير الوقفي والمجتمعي، جودة التنفيذ، والعرض التقديمي.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>هل سيتم توفير الطعام والإقامة؟</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        سيتم توفير وجبات الطعام والمشروبات طوال فترة الهاكاثون. أما الإقامة فهي مسؤولية المشاركين مع توفير قائمة بالفنادق القريبة.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>هل أحتاج لإحضار معدات خاصة؟</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        يجب على كل مشارك إحضار حاسوبه الشخصي. سيتم توفير الإنترنت والكهرباء وجميع المرافق الأساسية في مقر الفعالية.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PARTNERS ===== -->
+<section class="section organizers-section" id="partners">
+    <div class="section-container">
+        <div class="section-header reveal">
+            <div class="section-tag">الشركاء</div>
+            <h2 class="section-title">شركاء النجاح</h2>
+            <p class="section-subtitle">جهات رائدة تدعم الابتكار الوقفي وتساهم في إنجاح الهاكاثون</p>
+        </div>
+        <div class="partners-grid reveal">
+            <!-- Row 1 - Main Partners -->
+            <div class="partner-card featured-partner">
+                <div class="partner-logo-wrap">
+                    <img src="assets/intinior.png" alt="وزارة الأوقاف والشؤون الدينية" class="partner-logo-img">
+                </div>
+                <h4>وزارة الأوقاف والشؤون الدينية</h4>
+                <p>إدارة الأوقاف والشؤون الدينية بمحافظة الداخلية</p>
+            </div>
+            <div class="partner-card featured-partner">
+                <div class="partner-logo-wrap">
+                    <img src="assets/dakliya.png" alt="محافظة الداخلية" class="partner-logo-img ">
+                </div>
+                <h4>محافظة الداخلية</h4>
+                <p>Al Dakhiliyah Governorate</p>
+            </div>
+            <div class="partner-card featured-partner">
+                <div class="partner-logo-wrap">
+                    <img src="assets/mathaf.svg" alt="متحف عُمان عبر الزمان" class="partner-logo-img">
+                </div>
+                <h4>متحف عُمان عبر الزمان</h4>
+                <p>Oman Across Ages Museum</p>
+            </div>
+            <!-- Row 2 -->
+            <div class="partner-card">
+                <div class="partner-logo-wrap">
+                    <img src="assets/maeen.png" alt="مؤسسة معين الوقفية الخاصة" class="partner-logo-img">
+                </div>
+                <h4>مؤسسة معين الوقفية الخاصة</h4>
+                <p>Ma'een Private Endowment Foundation</p>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo-wrap">
+                    <img src="assets/university.png" alt="جامعة نزوى" class="partner-logo-img">
+                </div>
+                <h4>جامعة نزوى</h4>
+                <p>University of Nizwa</p>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo-wrap">
+                    <img src="assets/jaber.svg" alt="مؤسسة الإمام جابر بن زيد الوقفية" class="partner-logo-img">
+                </div>
+                <h4>مؤسسة الإمام جابر بن زيد الوقفية</h4>
+                <p>Imam Jabir Bin Zaid Waqf Foundation</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section">
+    <h2>مستقبل الأوقاف يبدأ من هنا!</h2>
+    <p>انضم إلينا وكن جزءاً من حركة الابتكار الوقفي في محافظة الداخلية</p>
+    <a href="#" class="btn-primary" style="background:var(--gradient-orange);" onclick="openModal(); return false;">
+        <i class="fas fa-rocket"></i>
+        سجّل الآن
+    </a>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <img src="assets/waqf-logo-dark.png" alt="هاكاثون الوقف">
+            <p>هاكاثون الوقف - فعالية تقنية مميزة تجمع المبدعين والمبتكرين لتطوير حلول ذكية تخدم القطاع الوقفي وتساهم في استدامته.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>روابط سريعة</h4>
+            <ul>
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#challenges">المحاور</a></li>
+                <li><a href="#journey">مسار المشارك</a></li>
+                <li><a href="#prizes">الجوائز</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>معلومات</h4>
+            <ul>
+                <li><a href="#about">عن الفعالية</a></li>
+                <li><a href="#faq">الأسئلة الشائعة</a></li>
+                <li><a href="#">التسجيل</a></li>
+                <li><a href="#">تسجيل الدخول</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>تواصل معنا</h4>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                info@waqfhackathon.om
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                محافظة الداخلية، سلطنة عُمان
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2026 هاكاثون الوقف - ابتكار واستدامة. جميع الحقوق محفوظة
+    </div>
+</footer>
+
+<!-- ===== AUTH CHOICE MODAL ===== -->
+<div class="modal-overlay" id="authChoiceModal">
+    <div class="success-container" style="max-width:440px;">
+        <img src="assets/waqf-logo.png" alt="هاكاثون الوقف" class="success-logo" style="height:70px;margin-bottom:20px;">
+        <h2 style="margin-bottom:6px;">مرحباً بك في هاكاثون الوقف</h2>
+        <p style="margin-bottom:28px;">اختر طريقة الدخول</p>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+            <button class="form-btn-submit" style="width:100%;justify-content:center;" onclick="showLoginModal()">
+                <i class="fas fa-sign-in-alt"></i>
+                مسجل سابقاً
+            </button>
+            <button class="form-btn-next" style="width:100%;justify-content:center;" onclick="showRegisterModal()">
+                <i class="fas fa-user-plus"></i>
+                تسجيل جديد
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== LOGIN MODAL ===== -->
+<div class="modal-overlay" id="loginModal">
+    <div class="modal-container" style="max-width:480px;">
+        <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
+        <div class="modal-header">
+            <img src="assets/waqf-logo.png" alt="هاكاثون الوقف" class="modal-logo">
+            <h2>تسجيل الدخول</h2>
+            <p>أدخل بياناتك للوصول إلى لوحة التحكم</p>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label required">البريد الإلكتروني</label>
+                <div class="input-wrap">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="example@email.com" dir="ltr">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label required">كلمة المرور</label>
+                <div class="input-wrap">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" dir="ltr">
+                </div>
+            </div>
+            <div id="loginError" style="display:none;background:#fef2f2;color:#ef4444;padding:10px 16px;border-radius:10px;font-size:0.9rem;margin-bottom:12px;text-align:center;">
+                <i class="fas fa-exclamation-circle"></i> <span></span>
+            </div>
+            <button class="form-btn-submit" style="width:100%;justify-content:center;" onclick="loginUser()">
+                <i class="fas fa-sign-in-alt"></i>
+                دخول
+            </button>
+            <div style="text-align:center;margin-top:16px;">
+                <a href="#" onclick="showRegisterModal();return false;" style="color:var(--primary-blue);font-weight:600;font-size:0.9rem;text-decoration:none;">ليس لديك حساب؟ سجّل الآن</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== REGISTER MODAL ===== -->
+<div class="modal-overlay" id="registerModal">
+    <div class="modal-container" style="max-width:520px;">
+        <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
+        <div class="modal-header">
+            <img src="assets/waqf-logo.png" alt="هاكاثون الوقف" class="modal-logo">
+            <h2>إنشاء حساب جديد</h2>
+            <p>أنشئ حسابك للمشاركة في هاكاثون الوقف</p>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label required">اسم المستخدم</label>
+                    <div class="input-wrap"><i class="fas fa-at"></i>
+                        <input type="text" id="regUsername" class="form-input" placeholder="username" dir="ltr">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">الاسم الكامل</label>
+                    <div class="input-wrap"><i class="fas fa-user"></i>
+                        <input type="text" id="regFullName" class="form-input" placeholder="الاسم الكامل">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label required">اسم الفريق</label>
+                <div class="input-wrap"><i class="fas fa-users"></i>
+                    <input type="text" id="regTeamName" class="form-input" placeholder="أدخل اسم الفريق">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label required">البريد الإلكتروني</label>
+                <div class="input-wrap"><i class="fas fa-envelope"></i>
+                    <input type="email" id="regEmail" class="form-input" placeholder="example@email.com" dir="ltr">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label required">كلمة المرور</label>
+                    <div class="input-wrap"><i class="fas fa-lock"></i>
+                        <input type="password" id="regPassword" class="form-input" placeholder="••••••••" dir="ltr">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">تأكيد كلمة المرور</label>
+                    <div class="input-wrap"><i class="fas fa-lock"></i>
+                        <input type="password" id="regPasswordConfirm" class="form-input" placeholder="••••••••" dir="ltr">
+                    </div>
+                </div>
+            </div>
+            <div id="regError" style="display:none;background:#fef2f2;color:#ef4444;padding:10px 16px;border-radius:10px;font-size:0.9rem;margin-bottom:12px;text-align:center;">
+                <i class="fas fa-exclamation-circle"></i> <span></span>
+            </div>
+            <button class="form-btn-next" style="width:100%;justify-content:center;" onclick="registerUser()">
+                <i class="fas fa-user-plus"></i>
+                إنشاء الحساب
+            </button>
+            <div style="text-align:center;margin-top:16px;">
+                <a href="#" onclick="showLoginModal();return false;" style="color:var(--primary-blue);font-weight:600;font-size:0.9rem;text-decoration:none;">لديك حساب؟ سجّل الدخول</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TEAM REGISTRATION MODAL ===== -->
+<div class="modal-overlay" id="regModal">
+    <div class="modal-container">
+        <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
+        <div class="modal-header">
+            <img src="assets/waqf-logo.png" alt="هاكاثون الوقف" class="modal-logo">
+            <h2>تسجيل بيانات المشروع</h2>
+            <p id="regModalSubtitle">أكمل البيانات التالية لتسجيل مشروع فريقك</p>
+        </div>
+        <div class="modal-body">
+            <div class="form-progress">
+                <div class="progress-step active" data-step="1"><div class="step-circle">1</div><span>بيانات الفريق</span></div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2"><div class="step-circle">2</div><span>المحور والفكرة</span></div>
+            </div>
+            <div class="form-step" id="formStep1">
+                <div class="form-divider"><span><i class="fas fa-user-tie"></i> قائد الفريق</span></div>
+                <div class="form-group">
+                    <label class="form-label required">الاسم الثلاثي لقائد الفريق</label>
+                    <div class="input-wrap"><i class="fas fa-crown"></i>
+                        <input type="text" id="leaderName" class="form-input" placeholder="الاسم الأول - الأب - العائلة" readonly style="background:rgba(39,103,196,0.04);cursor:default;">
+                    </div>
+                </div>
+                <div class="form-divider"><span><i class="fas fa-user-friends"></i> أعضاء الفريق</span></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label required">اسم العضو الثاني</label>
+                        <div class="input-wrap"><i class="fas fa-user"></i><input type="text" id="member2" class="form-input" placeholder="اسم العضو الثاني"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">اسم العضو الثالث</label>
+                        <div class="input-wrap"><i class="fas fa-user"></i><input type="text" id="member3" class="form-input" placeholder="اسم العضو الثالث"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">اسم العضو الرابع</label>
+                        <div class="input-wrap"><i class="fas fa-user"></i><input type="text" id="member4" class="form-input" placeholder="اختياري"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">اسم العضو الخامس</label>
+                        <div class="input-wrap"><i class="fas fa-user"></i><input type="text" id="member5" class="form-input" placeholder="اختياري"></div>
+                    </div>
+                </div>
+                <button class="form-btn-next" onclick="goToStep(2)">التالي <i class="fas fa-arrow-left"></i></button>
+            </div>
+            <div class="form-step" id="formStep2" style="display:none;">
+                <div class="form-group">
+                    <label class="form-label required">اختر المحور</label>
+                    <div class="input-wrap select-wrap"><i class="fas fa-puzzle-piece"></i>
+                        <select id="challenge" class="form-input form-select">
+                            <option value="">-- اختر المحور --</option>
+                            <option value="الوقف الرقمي (من الوثيقة إلى التطبيق)">1. الوقف الرقمي (من الوثيقة إلى التطبيق)</option>
+                            <option value="الوقف المعرفي (علم ينتفع به)">2. الوقف المعرفي (علم ينتفع به)</option>
+                            <option value="الوقف الاستثماري (أصول تنمو بالخير)">3. الوقف الاستثماري (أصول تنمو بالخير)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">نبذة عن فكرة المشروع أو الابتكار</label>
+                    <div class="input-wrap textarea-wrap"><i class="fas fa-lightbulb"></i>
+                        <textarea id="projectIdea" class="form-input form-textarea" rows="5" placeholder="اكتب نبذة مختصرة عن فكرتك الابتكارية..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">تحميل ملف</label>
+                    <div class="file-upload-area" id="fileUploadArea" onclick="document.getElementById('fileInput').click()">
+                        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg" style="display:none" onchange="handleFileSelect(event)">
+                        <div class="file-upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <div class="file-upload-text"><strong>اضغط لاختيار ملف</strong><span>PDF, DOC, PPTX, PNG, JPG - الحد الأقصى 10MB</span></div>
+                    </div>
+                    <div class="file-preview" id="filePreview" style="display:none;">
+                        <i class="fas fa-file-alt"></i><span id="fileName"></span>
+                        <button onclick="removeFile()" class="file-remove"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+                <div class="form-btn-group">
+                    <button class="form-btn-back" onclick="goToStep(1)"><i class="fas fa-arrow-right"></i> السابق</button>
+                    <button class="form-btn-submit" id="projectSubmitBtn" onclick="submitProject()"><i class="fas fa-save"></i> حفظ المشروع</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== DASHBOARD MODAL ===== -->
+<div class="modal-overlay" id="dashboardModal">
+    <div class="modal-container" style="max-width:800px;">
+        <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
+        <div class="modal-header" style="padding-bottom:16px;">
+            <img src="assets/waqf-logo.png" alt="هاكاثون الوقف" class="modal-logo" style="height:60px;">
+            <h2>لوحة التحكم</h2>
+        </div>
+        <div class="modal-body" style="padding-top:0;">
+            <!-- Profile Card -->
+            <div style="background:var(--gradient-blue);border-radius:16px;padding:28px;color:white;margin-bottom:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+                <div style="width:64px;height:64px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div style="flex:1;min-width:200px;">
+                    <div style="font-family:'Cairo',sans-serif;font-weight:800;font-size:1.3rem;" id="dashName">-</div>
+                    <div style="opacity:0.7;font-size:0.9rem;" id="dashTeamLabel">-</div>
+                    <div style="opacity:0.5;font-size:0.8rem;" id="dashEmail">-</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.15);padding:6px 16px;border-radius:50px;font-size:0.8rem;font-weight:700;">
+                    <i class="fas fa-users" style="margin-left:6px;"></i> فريق مشارك
+                </div>
+            </div>
+
+            <!-- Project Info -->
+            <div id="dashProjectSection">
+                <div id="dashNoProject" style="text-align:center;padding:40px 20px;">
+                    <div style="font-size:3rem;color:var(--text-light);margin-bottom:12px;"><i class="fas fa-folder-open"></i></div>
+                    <h3 style="font-family:'Cairo',sans-serif;color:var(--text-dark);margin-bottom:8px;">لم تسجل مشروعاً بعد</h3>
+                    <p style="color:var(--text-light);margin-bottom:20px;">ابدأ بتسجيل بيانات مشروعك والفريق</p>
+                    <button class="form-btn-submit" style="display:inline-flex;" onclick="openProjectForm()">
+                        <i class="fas fa-plus"></i> تسجيل مشروع جديد
+                    </button>
+                </div>
+                <div id="dashProjectData" style="display:none;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+                        <h3 style="font-family:'Cairo',sans-serif;font-weight:800;color:var(--text-dark);"><i class="fas fa-project-diagram" style="color:var(--primary-orange);margin-left:8px;"></i>بيانات المشروع</h3>
+                        <button onclick="editProject()" style="background:rgba(39,103,196,0.08);border:none;color:var(--primary-blue);padding:8px 18px;border-radius:10px;font-family:'Tajawal',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;">
+                            <i class="fas fa-edit" style="margin-left:4px;"></i> تعديل
+                        </button>
+                    </div>
+                    <div style="background:var(--bg-light);border-radius:14px;padding:20px;border:1px solid rgba(39,103,196,0.06);">
+                        <div class="dash-info-grid" id="dashInfoGrid"></div>
+                    </div>
+                    <!-- File Section -->
+                    <div id="dashFileSection" style="margin-top:16px;background:var(--bg-light);border-radius:14px;padding:20px;border:1px solid rgba(39,103,196,0.06);display:none;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <i class="fas fa-paperclip" style="color:var(--primary-orange);font-size:1.1rem;"></i>
+                                <span style="font-weight:700;color:var(--text-dark);">المرفق:</span>
+                                <span id="dashFileName" style="color:var(--primary-blue);font-weight:600;"></span>
+                            </div>
+                            <div style="display:flex;gap:8px;">
+                                <button onclick="replaceFile()" style="background:rgba(39,103,196,0.08);border:none;color:var(--primary-blue);padding:6px 14px;border-radius:8px;font-family:'Tajawal',sans-serif;font-weight:600;font-size:0.8rem;cursor:pointer;">
+                                    <i class="fas fa-sync-alt"></i> استبدال
+                                </button>
+                                <button onclick="deleteFile()" style="background:#fef2f2;border:none;color:#ef4444;padding:6px 14px;border-radius:8px;font-family:'Tajawal',sans-serif;font-weight:600;font-size:0.8rem;cursor:pointer;">
+                                    <i class="fas fa-trash-alt"></i> حذف
+                                </button>
+                            </div>
+                        </div>
+                        <input type="file" id="replaceFileInput" style="display:none" accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg" onchange="handleReplaceFile(event)">
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid rgba(39,103,196,0.06);">
+                <button onclick="logoutUser()" style="background:none;border:none;color:#ef4444;font-family:'Tajawal',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;padding:8px 16px;">
+                    <i class="fas fa-sign-out-alt" style="margin-left:6px;"></i> تسجيل الخروج
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== SUCCESS MODAL ===== -->
+<div class="modal-overlay" id="successModal">
+    <div class="success-container">
+        <div class="success-animation"><div class="success-circle"><i class="fas fa-check"></i></div></div>
+        <img src="assets/waqf-logo.png" alt="هاكاثون الوقف" class="success-logo">
+        <h2 id="successTitle">تم حفظ البيانات بنجاح!</h2>
+        <p id="successMsg">تم تسجيل بياناتكم بنجاح.</p>
+        <div class="success-details" id="successDetails"></div>
+        <button class="success-btn" id="successBtn" onclick="closeSuccessAndGoToDash()">
+            <i class="fas fa-tachometer-alt"></i> الذهاب للوحة التحكم
+        </button>
+    </div>
+</div>
+
+<script>
+    // ===== Navbar & UI =====
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    function toggleNav() { document.getElementById('navLinks').classList.toggle('active'); }
+    function toggleFaq(el) {
+        const item = el.parentElement;
+        const isActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        if (!isActive) item.classList.add('active');
+    }
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.form-input').forEach(input => {
+        input.addEventListener('input', function() { this.classList.remove('error'); });
+    });
+
+    // ===== SUPABASE =====
+    const SUPABASE_URL = 'https://cojthsbgnjvucuobahln.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNvanRoc2Jnbmp2dWN1b2JhaGxuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MjkzNDksImV4cCI6MjA4NjQwNTM0OX0.Qibpowv-dNbE3mqFMeFMTHp2APkv7ekSiAOH7QXxmKQ';
+
+    // Lightweight Supabase REST client (no SDK needed)
+    const SB = {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+        async query(table, params = '') {
+            const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}${params}`, { headers: this.headers });
+            if (!r.ok) return null;
+            return r.json();
+        },
+        async upsert(table, data) {
+            const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+                method: 'POST', headers: { ...this.headers, 'Prefer': 'resolution=merge-duplicates,return=representation' },
+                body: JSON.stringify(data)
+            });
+            if (!r.ok) { const e = await r.text(); console.error('Upsert error:', e); return null; }
+            return r.json();
+        },
+        async del(table, col, val) {
+            const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${col}=eq.${encodeURIComponent(val)}`, {
+                method: 'DELETE', headers: this.headers
+            });
+            return r.ok;
+        },
+        async uploadFile(bucket, path, file) {
+            const r = await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}/${path}`, {
+                method: 'POST', headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
+                body: file
+            });
+            if (!r.ok) return null;
+            return `${SUPABASE_URL}/storage/v1/object/public/${bucket}/${path}`;
+        },
+        async deleteFile(bucket, path) {
+            await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}/${path}`, {
+                method: 'DELETE', headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+            });
+        }
+    };
+
+    // Field mapping: app ↔ Supabase
+    const fieldMap = {
+        users: {
+            toDB: d => ({ email: d.email, username: d.username, full_name: d.fullName, team_name: d.teamName, password_hash: d.password, role: d.role || 'فريق مشارك', status: d.status || 'active', created_at: d.createdAt || new Date().toISOString() }),
+            fromDB: d => d ? { ...d, fullName: d.full_name, teamName: d.team_name, password: d.password_hash, createdAt: d.created_at } : null
+        },
+        projects: {
+            toDB: d => ({ user_email: d.userEmail, leader_name: d.leaderName, member2: d.member2, member3: d.member3, member4: d.member4, member5: d.member5, challenge: d.challenge, project_idea: d.projectIdea, file_name: d.fileName, file_url: d.fileUrl || null, updated_at: d.updatedAt || new Date().toISOString() }),
+            fromDB: d => d ? { ...d, userEmail: d.user_email, leaderName: d.leader_name, projectIdea: d.project_idea, fileName: d.file_name, fileUrl: d.file_url, updatedAt: d.updated_at } : null
+        },
+        settings: {
+            toDB: d => ({ id: d.id || 'global', registration_open: d.registrationOpen, registration_date: d.registrationDate, site_name: d.siteName }),
+            fromDB: d => d ? { ...d, registrationOpen: d.registration_open, registrationDate: d.registration_date, siteName: d.site_name } : null
+        }
+    };
+
+    const keyFields = { users: 'email', projects: 'user_email', settings: 'id' };
+
+    async function dbPut(table, data) {
+        const mapped = fieldMap[table].toDB(data);
+        return SB.upsert(table, mapped);
+    }
+    async function dbGet(table, key) {
+        const col = keyFields[table];
+        const rows = await SB.query(table, `?${col}=eq.${encodeURIComponent(key)}&limit=1`);
+        return fieldMap[table].fromDB(rows?.[0] || null);
+    }
+    async function dbGetAll(table) {
+        const orderCol = table === 'settings' ? 'id' : table === 'projects' ? 'updated_at' : 'created_at';
+        const rows = await SB.query(table, `?order=${orderCol}.desc`) || [];
+        return rows.map(r => fieldMap[table].fromDB(r));
+    }
+    async function dbDelete(table, key) {
+        return SB.del(table, keyFields[table], key);
+    }
+
+    // Seed admin & settings
+    async function initSupabase() {
+        try {
+            const admin = await dbGet('users', 'admin@waqfhackathon.om');
+            if (!admin) {
+                await dbPut('users', {
+                    email: 'admin@waqfhackathon.om', username: 'admin', fullName: 'مسؤول النظام',
+                    teamName: 'الإدارة', password: btoa('Admin@2026'), role: 'admin', status: 'active'
+                });
+                console.log('Admin seeded in Supabase');
+            }
+            const settings = await dbGet('settings', 'global');
+            if (!settings) {
+                await dbPut('settings', { id: 'global', registrationOpen: true, registrationDate: '2026-03-01T00:00', siteName: 'هاكاثون الوقف' });
+            }
+        } catch(e) { console.error('Init error:', e); }
+    }
+    initSupabase();
+
+    // ===== Session =====
+    let currentUser = null;
+    function checkSession() {
+        const saved = localStorage.getItem('waqf_session');
+        if (saved) {
+            currentUser = JSON.parse(saved);
+            updateNavForLoggedIn();
+        }
+    }
+    function saveSession(user) {
+        currentUser = { email: user.email, fullName: user.fullName, teamName: user.teamName, username: user.username, role: user.role || 'فريق مشارك' };
+        localStorage.setItem('waqf_session', JSON.stringify(currentUser));
+        updateNavForLoggedIn();
+    }
+    function updateNavForLoggedIn() {
+        const ctaLink = document.querySelector('.nav-cta');
+        if (ctaLink && currentUser) {
+            ctaLink.innerHTML = '<i class="fas fa-user-circle" style="margin-left:6px;"></i>' + currentUser.fullName;
+            ctaLink.setAttribute('onclick', 'openDashboard(); return false;');
+        }
+    }
+    checkSession();
+
+    // ===== Modal Management =====
+    function closeAllModals() {
+        document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('show'));
+        document.body.style.overflow = '';
+    }
+    function showModal(id) {
+        closeAllModals();
+        document.getElementById(id).classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+    function openModal() {
+        if (currentUser) { openDashboard(); return; }
+        showModal('authChoiceModal');
+    }
+    function showLoginModal() { showModal('loginModal'); }
+    function showRegisterModal() { showModal('registerModal'); }
+
+    // Close on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(m => {
+        m.addEventListener('click', function(e) { if (e.target === this) closeAllModals(); });
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllModals(); });
+
+    // ===== Register =====
+    async function registerUser() {
+        const username = document.getElementById('regUsername').value.trim();
+        const fullName = document.getElementById('regFullName').value.trim();
+        const teamName = document.getElementById('regTeamName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const pass = document.getElementById('regPassword').value;
+        const passC = document.getElementById('regPasswordConfirm').value;
+        const errEl = document.getElementById('regError');
+        errEl.style.display = 'none';
+
+        if (!username || !fullName || !teamName || !email || !pass || !passC) {
+            errEl.querySelector('span').textContent = 'جميع الحقول مطلوبة';
+            errEl.style.display = 'block'; return;
+        }
+        if (pass.length < 6) {
+            errEl.querySelector('span').textContent = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+            errEl.style.display = 'block'; return;
+        }
+        if (pass !== passC) {
+            errEl.querySelector('span').textContent = 'كلمتا المرور غير متطابقتين';
+            errEl.style.display = 'block'; return;
+        }
+        const existing = await dbGet('users', email);
+        if (existing) {
+            errEl.querySelector('span').textContent = 'البريد الإلكتروني مسجل مسبقاً';
+            errEl.style.display = 'block'; return;
+        }
+        const user = { email, username, fullName, teamName, password: btoa(pass), role: 'فريق مشارك', createdAt: new Date().toISOString() };
+        await dbPut('users', user);
+        saveSession(user);
+        showSuccess('تم إنشاء الحساب بنجاح!', 'مرحباً ' + fullName + '، يمكنك الآن تسجيل مشروعك.', true);
+    }
+
+    // ===== Login =====
+    async function loginUser() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const pass = document.getElementById('loginPassword').value;
+        const errEl = document.getElementById('loginError');
+        errEl.style.display = 'none';
+
+        if (!email || !pass) {
+            errEl.querySelector('span').textContent = 'أدخل البريد وكلمة المرور';
+            errEl.style.display = 'block'; return;
+        }
+        const user = await dbGet('users', email);
+        if (!user || atob(user.password) !== pass) {
+            errEl.querySelector('span').textContent = 'البريد أو كلمة المرور غير صحيحة';
+            errEl.style.display = 'block'; return;
+        }
+        saveSession(user);
+        closeAllModals();
+        openDashboard();
+    }
+
+    function logoutUser() {
+        currentUser = null;
+        localStorage.removeItem('waqf_session');
+        const ctaLink = document.querySelector('.nav-cta');
+        if (ctaLink) {
+            ctaLink.innerHTML = 'تسجيل الدخول';
+            ctaLink.setAttribute('onclick', 'openModal(); return false;');
+        }
+        closeAllModals();
+    }
+
+    // ===== Dashboard =====
+    async function openDashboard() {
+        if (!currentUser) { openModal(); return; }
+        document.getElementById('dashName').textContent = currentUser.fullName;
+        document.getElementById('dashTeamLabel').textContent = 'فريق: ' + currentUser.teamName;
+        document.getElementById('dashEmail').textContent = currentUser.email;
+
+        const project = await dbGet('projects', currentUser.email);
+        if (project) {
+            document.getElementById('dashNoProject').style.display = 'none';
+            document.getElementById('dashProjectData').style.display = 'block';
+            renderProjectInfo(project);
+        } else {
+            document.getElementById('dashNoProject').style.display = '';
+            document.getElementById('dashProjectData').style.display = 'none';
+        }
+        showModal('dashboardModal');
+    }
+
+    function renderProjectInfo(p) {
+        const grid = document.getElementById('dashInfoGrid');
+        grid.innerHTML = `
+            <div class="dash-info-row"><i class="fas fa-crown"></i><strong>قائد الفريق</strong><span>${p.leaderName}</span></div>
+            <div class="dash-info-row"><i class="fas fa-user"></i><strong>العضو الثاني</strong><span>${p.member2}</span></div>
+            <div class="dash-info-row"><i class="fas fa-user"></i><strong>العضو الثالث</strong><span>${p.member3}</span></div>
+            ${p.member4 ? `<div class="dash-info-row"><i class="fas fa-user"></i><strong>العضو الرابع</strong><span>${p.member4}</span></div>` : ''}
+            ${p.member5 ? `<div class="dash-info-row"><i class="fas fa-user"></i><strong>العضو الخامس</strong><span>${p.member5}</span></div>` : ''}
+            <div class="dash-info-row"><i class="fas fa-puzzle-piece"></i><strong>المحور</strong><span>${p.challenge}</span></div>
+            <div class="dash-info-row" style="align-items:flex-start;"><i class="fas fa-lightbulb"></i><strong>الفكرة</strong><span style="white-space:pre-wrap;">${p.projectIdea}</span></div>
+        `;
+        const fs = document.getElementById('dashFileSection');
+        if (p.fileName) {
+            fs.style.display = 'block';
+            document.getElementById('dashFileName').textContent = p.fileName;
+        } else {
+            fs.style.display = 'none';
+        }
+    }
+
+    // ===== Project Form =====
+    let selectedFile = null;
+    let editMode = false;
+
+    function openProjectForm() {
+        editMode = false;
+        resetProjectForm();
+        if (currentUser) document.getElementById('leaderName').value = currentUser.fullName;
+        closeAllModals();
+        showModal('regModal');
+    }
+
+    async function editProject() {
+        editMode = true;
+        const project = await dbGet('projects', currentUser.email);
+        if (project) {
+            document.getElementById('leaderName').value = currentUser.fullName;
+            document.getElementById('member2').value = project.member2 || '';
+            document.getElementById('member3').value = project.member3 || '';
+            document.getElementById('member4').value = project.member4 || '';
+            document.getElementById('member5').value = project.member5 || '';
+            document.getElementById('challenge').value = project.challenge || '';
+            document.getElementById('projectIdea').value = project.projectIdea || '';
+            if (project.fileName) {
+                document.getElementById('filePreview').style.display = 'flex';
+                document.getElementById('fileUploadArea').style.display = 'none';
+                document.getElementById('fileName').textContent = project.fileName;
+            }
+        }
+        document.getElementById('projectSubmitBtn').innerHTML = '<i class="fas fa-save"></i> حفظ التعديلات';
+        closeAllModals();
+        showModal('regModal');
+    }
+
+    function goToStep(step) {
+        if (step === 2) {
+            const leader = document.getElementById('leaderName').value.trim();
+            const m2 = document.getElementById('member2').value.trim();
+            const m3 = document.getElementById('member3').value.trim();
+            let err = false;
+            clearErrors();
+            if (!leader) { showError('leaderName'); err = true; }
+            if (!m2) { showError('member2'); err = true; }
+            if (!m3) { showError('member3'); err = true; }
+            if (err) return;
+        }
+        document.getElementById('formStep1').style.display = step === 1 ? 'block' : 'none';
+        document.getElementById('formStep2').style.display = step === 2 ? 'block' : 'none';
+        document.querySelectorAll('.progress-step').forEach(el => {
+            const s = parseInt(el.dataset.step);
+            el.classList.remove('active', 'completed');
+            if (s === step) el.classList.add('active');
+            if (s < step) el.classList.add('completed');
+        });
+        document.querySelector('.modal-container')?.scrollTo(0, 0);
+    }
+
+    async function submitProject() {
+        clearErrors();
+        let err = false;
+        const ch = document.getElementById('challenge').value;
+        const idea = document.getElementById('projectIdea').value.trim();
+        if (!ch) { showError('challenge'); err = true; }
+        if (!idea) { showError('projectIdea'); err = true; }
+        if (err) return;
+
+        const btn = document.getElementById('projectSubmitBtn');
+        btn.disabled = true; btn.classList.add('btn-loading');
+        btn.innerHTML = '<span>جاري الحفظ...</span>';
+
+        let fileUrl = null, fileName = null;
+        if (selectedFile) {
+            fileName = selectedFile.name;
+            const path = `${currentUser.email}/${Date.now()}_${fileName}`;
+            fileUrl = await SB.uploadFile('project-files', path, selectedFile);
+            if (!fileUrl) { fileUrl = null; } // fallback if storage not set up
+        } else if (editMode) {
+            const old = await dbGet('projects', currentUser.email);
+            if (old) { fileUrl = old.fileUrl; fileName = old.fileName; }
+        }
+
+        const project = {
+            userEmail: currentUser.email,
+            leaderName: document.getElementById('leaderName').value.trim(),
+            member2: document.getElementById('member2').value.trim(),
+            member3: document.getElementById('member3').value.trim(),
+            member4: document.getElementById('member4').value.trim(),
+            member5: document.getElementById('member5').value.trim(),
+            challenge: ch, projectIdea: idea,
+            fileName, fileUrl,
+            updatedAt: new Date().toISOString()
+        };
+
+        await dbPut('projects', project);
+
+        setTimeout(() => {
+            btn.disabled = false; btn.classList.remove('btn-loading');
+            btn.innerHTML = '<i class="fas fa-save"></i> حفظ المشروع';
+            showSuccess(
+                editMode ? 'تم تحديث البيانات بنجاح!' : 'تم حفظ المشروع بنجاح!',
+                'يمكنك مراجعة وتعديل البيانات من لوحة التحكم في أي وقت.',
+                true
+            );
+        }, 1000);
+    }
+
+    // ===== File Handling =====
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        if (file.size > 10 * 1024 * 1024) { alert('حجم الملف يتجاوز 10MB'); return; }
+        selectedFile = file;
+        document.getElementById('filePreview').style.display = 'flex';
+        document.getElementById('fileUploadArea').style.display = 'none';
+        document.getElementById('fileName').textContent = file.name;
+    }
+    function removeFile() {
+        selectedFile = null;
+        document.getElementById('fileInput').value = '';
+        document.getElementById('filePreview').style.display = 'none';
+        document.getElementById('fileUploadArea').style.display = '';
+    }
+    function fileToBase64(file) {
+        return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+    }
+    async function deleteFile() {
+        if (!confirm('هل تريد حذف المرفق؟')) return;
+        const p = await dbGet('projects', currentUser.email);
+        if (p) { p.fileName = null; p.fileUrl = null; await dbPut('projects', p); }
+        openDashboard();
+    }
+    function replaceFile() { document.getElementById('replaceFileInput').click(); }
+    async function handleReplaceFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        if (file.size > 10 * 1024 * 1024) { alert('حجم الملف يتجاوز 10MB'); return; }
+        const path = `${currentUser.email}/${Date.now()}_${file.name}`;
+        const fileUrl = await SB.uploadFile('project-files', path, file);
+        const p = await dbGet('projects', currentUser.email);
+        if (p) { p.fileName = file.name; p.fileUrl = fileUrl; await dbPut('projects', p); }
+        openDashboard();
+    }
+
+    // ===== Helpers =====
+    function showError(id) {
+        const f = document.getElementById(id);
+        f.classList.add('error');
+        f.closest('.form-group')?.classList.add('shake');
+        setTimeout(() => f.closest('.form-group')?.classList.remove('shake'), 400);
+    }
+    function clearErrors() { document.querySelectorAll('.form-input.error').forEach(el => el.classList.remove('error')); }
+    function resetProjectForm() {
+        ['leaderName','member2','member3','member4','member5','projectIdea'].forEach(id => { document.getElementById(id).value = ''; });
+        document.getElementById('challenge').selectedIndex = 0;
+        removeFile(); clearErrors(); goToStep(1);
+        document.getElementById('projectSubmitBtn').innerHTML = '<i class="fas fa-save"></i> حفظ المشروع';
+    }
+
+    function showSuccess(title, msg, goToDash) {
+        closeAllModals();
+        document.getElementById('successTitle').textContent = title;
+        document.getElementById('successMsg').textContent = msg;
+        document.getElementById('successDetails').innerHTML = '';
+        const btn = document.getElementById('successBtn');
+        if (goToDash) {
+            btn.innerHTML = '<i class="fas fa-tachometer-alt"></i> الذهاب للوحة التحكم';
+            btn.setAttribute('onclick', 'closeSuccessAndGoToDash()');
+        } else {
+            btn.innerHTML = '<i class="fas fa-home"></i> العودة للرئيسية';
+            btn.setAttribute('onclick', 'closeAllModals()');
+        }
+        showModal('successModal');
+    }
+    function closeSuccessAndGoToDash() { closeAllModals(); openDashboard(); }
+
+    // Drag & Drop
+    const ua = document.getElementById('fileUploadArea');
+    if (ua) {
+        ua.addEventListener('dragover', (e) => { e.preventDefault(); ua.style.borderColor = 'var(--primary-blue)'; });
+        ua.addEventListener('dragleave', () => { ua.style.borderColor = ''; });
+        ua.addEventListener('drop', (e) => { e.preventDefault(); ua.style.borderColor = '';
+            if (e.dataTransfer.files.length > 0) { document.getElementById('fileInput').files = e.dataTransfer.files; handleFileSelect({ target: { files: e.dataTransfer.files } }); }
+        });
+    }
+
+    // ===== ADMIN SYSTEM =====
+
+    // Override openDashboard to route admin
+    const origOpenDash = openDashboard;
+    openDashboard = async function() {
+        if (!currentUser) { openModal(); return; }
+        if (currentUser.role === 'admin') { openAdminPanel(); return; }
+        origOpenDash();
+    };
+
+    // Check registration status for buttons
+    async function checkRegistrationStatus() {
+        try {
+            const s = await dbGet('settings', 'global');
+            if (s && !s.registrationOpen) {
+                document.querySelectorAll('.challenge-btn').forEach(b => {
+                    b.innerHTML = '<i class="fas fa-lock"></i> التسجيل مغلق';
+                    b.style.opacity = '0.5'; b.style.pointerEvents = 'none';
+                });
+            }
+        } catch(e) {}
+    }
+    setTimeout(checkRegistrationStatus, 500);
+
+    // Also check in openModal - only block NEW registration, login always allowed
+    const origOpenModal = openModal;
+    openModal = async function() {
+        if (currentUser) { openDashboard(); return; }
+        showModal('authChoiceModal');
+    };
+
+    // Block only the "تسجيل جديد" button when registration is closed
+    const origShowRegister = showRegisterModal;
+    showRegisterModal = async function() {
+        try {
+            const s = await dbGet('settings', 'global');
+            if (s && !s.registrationOpen) {
+                alert('عذراً، التسجيل الجديد مغلق حالياً. يمكنك تسجيل الدخول إذا كان لديك حساب.');
+                return;
+            }
+        } catch(e) {}
+        showModal('registerModal');
+    };
+
+    // ===== ADMIN PANEL =====
+    let adminTab = 'dashboard';
+    let allUsers = []; let allProjects = [];
+
+    function openAdminPanel() {
+        document.getElementById('adminPanel').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        switchAdminTab('dashboard');
+    }
+    function closeAdminPanel() {
+        document.getElementById('adminPanel').style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    async function switchAdminTab(tab) {
+        adminTab = tab;
+        allUsers = await dbGetAll('users');
+        allProjects = await dbGetAll('projects');
+        document.querySelectorAll('.admin-nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelector(`.admin-nav-item[data-tab="${tab}"]`)?.classList.add('active');
+        const content = document.getElementById('adminContent');
+
+        if (tab === 'dashboard') content.innerHTML = renderAdminDashboard();
+        else if (tab === 'teams') content.innerHTML = renderTeamsTab();
+        else if (tab === 'projects') content.innerHTML = renderProjectsTab();
+        else if (tab === 'roles') content.innerHTML = renderRolesTab();
+        else if (tab === 'settings') content.innerHTML = renderSettingsTab();
+    }
+
+    function renderAdminDashboard() {
+        const teams = allUsers.filter(u => u.role !== 'admin');
+        const active = teams.filter(u => u.status !== 'suspended' && u.status !== 'excluded');
+        const suspended = teams.filter(u => u.status === 'suspended');
+        const excluded = teams.filter(u => u.status === 'excluded');
+        const withProject = allProjects.length;
+        const axes = {};
+        allProjects.forEach(p => { axes[p.challenge] = (axes[p.challenge] || 0) + 1; });
+
+        return `
+        <h2 class="admin-page-title"><i class="fas fa-tachometer-alt"></i> لوحة المعلومات</h2>
+        <div class="admin-stats-grid">
+            <div class="admin-stat-card blue"><div class="admin-stat-icon"><i class="fas fa-users"></i></div><div class="admin-stat-info"><div class="admin-stat-num">${teams.length}</div><div class="admin-stat-label">إجمالي الفرق</div></div></div>
+            <div class="admin-stat-card green"><div class="admin-stat-icon"><i class="fas fa-check-circle"></i></div><div class="admin-stat-info"><div class="admin-stat-num">${active.length}</div><div class="admin-stat-label">فرق نشطة</div></div></div>
+            <div class="admin-stat-card orange"><div class="admin-stat-icon"><i class="fas fa-project-diagram"></i></div><div class="admin-stat-info"><div class="admin-stat-num">${withProject}</div><div class="admin-stat-label">مشاريع مسجلة</div></div></div>
+            <div class="admin-stat-card red"><div class="admin-stat-icon"><i class="fas fa-ban"></i></div><div class="admin-stat-info"><div class="admin-stat-num">${suspended.length + excluded.length}</div><div class="admin-stat-label">موقوف / مستبعد</div></div></div>
+        </div>
+        <div class="admin-charts-row">
+            <div class="admin-chart-card">
+                <h3><i class="fas fa-chart-pie"></i> توزيع المحاور</h3>
+                <div class="admin-axis-list">
+                    ${Object.entries(axes).map(([k,v]) => `
+                        <div class="admin-axis-item">
+                            <span class="admin-axis-name">${k}</span>
+                            <div class="admin-axis-bar"><div class="admin-axis-fill" style="width:${Math.max(10, (v/Math.max(withProject,1))*100)}%"></div></div>
+                            <span class="admin-axis-count">${v}</span>
+                        </div>
+                    `).join('') || '<p style="color:var(--text-light);text-align:center;padding:20px;">لا توجد مشاريع بعد</p>'}
+                </div>
+            </div>
+            <div class="admin-chart-card">
+                <h3><i class="fas fa-clock"></i> آخر التسجيلات</h3>
+                <div class="admin-recent-list">
+                    ${teams.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0,5).map(u => `
+                        <div class="admin-recent-item">
+                            <div class="admin-recent-avatar">${u.fullName?.charAt(0) || '?'}</div>
+                            <div><strong>${u.fullName}</strong><br><small style="color:var(--text-light);">${u.teamName} - ${new Date(u.createdAt).toLocaleDateString('ar-OM')}</small></div>
+                            <span class="admin-status-badge ${u.status === 'suspended' ? 'suspended' : u.status === 'excluded' ? 'excluded' : 'active'}">${u.status === 'suspended' ? 'موقوف' : u.status === 'excluded' ? 'مستبعد' : 'نشط'}</span>
+                        </div>
+                    `).join('') || '<p style="color:var(--text-light);text-align:center;padding:20px;">لا توجد تسجيلات</p>'}
+                </div>
+            </div>
+        </div>`;
+    }
+
+    function renderTeamsTab() {
+        const teams = allUsers.filter(u => u.role !== 'admin');
+        return `
+        <h2 class="admin-page-title"><i class="fas fa-users-cog"></i> إدارة الفرق <span class="admin-count">${teams.length}</span></h2>
+        <div class="admin-table-wrap">
+            <table class="admin-table">
+                <thead><tr><th>الفريق</th><th>القائد</th><th>البريد</th><th>الدور</th><th>الحالة</th><th>التاريخ</th><th>إجراءات</th></tr></thead>
+                <tbody>
+                    ${teams.map(u => {
+                        const st = u.status === 'suspended' ? 'suspended' : u.status === 'excluded' ? 'excluded' : 'active';
+                        const stLabel = u.status === 'suspended' ? 'موقوف' : u.status === 'excluded' ? 'مستبعد' : 'نشط';
+                        return `<tr>
+                            <td><strong>${u.teamName}</strong></td>
+                            <td>${u.fullName}</td>
+                            <td style="direction:ltr;text-align:right;font-size:0.8rem;">${u.email}</td>
+                            <td><span class="admin-role-tag">${u.role || 'فريق مشارك'}</span></td>
+                            <td><span class="admin-status-badge ${st}">${stLabel}</span></td>
+                            <td style="font-size:0.8rem;">${new Date(u.createdAt).toLocaleDateString('ar-OM')}</td>
+                            <td class="admin-actions">
+                                ${st !== 'suspended' ? `<button onclick="adminAction('suspend','${u.email}')" class="admin-act-btn warn"><i class="fas fa-pause-circle"></i> إيقاف</button>` : `<button onclick="adminAction('activate','${u.email}')" class="admin-act-btn ok"><i class="fas fa-play-circle"></i> تفعيل</button>`}
+                                ${st !== 'excluded' ? `<button onclick="adminAction('exclude','${u.email}')" class="admin-act-btn danger"><i class="fas fa-user-slash"></i> استبعاد</button>` : ''}
+                                <button onclick="adminAction('delete','${u.email}')" class="admin-act-btn danger"><i class="fas fa-trash-alt"></i> حذف</button>
+                            </td>
+                        </tr>`;
+                    }).join('') || '<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--text-light);">لا توجد فرق مسجلة</td></tr>'}
+                </tbody>
+            </table>
+        </div>`;
+    }
+
+    function renderProjectsTab() {
+        return `
+        <h2 class="admin-page-title"><i class="fas fa-project-diagram"></i> المشاريع <span class="admin-count">${allProjects.length}</span></h2>
+        <div class="admin-table-wrap">
+            <table class="admin-table">
+                <thead><tr><th>الفريق</th><th>القائد</th><th>المحور</th><th>الأعضاء</th><th>المرفق</th><th>إجراءات</th></tr></thead>
+                <tbody>
+                    ${allProjects.map(p => {
+                        const user = allUsers.find(u => u.email === p.userEmail);
+                        const members = [p.member2, p.member3, p.member4, p.member5].filter(Boolean).join('، ');
+                        return `<tr>
+                            <td><strong>${user?.teamName || '-'}</strong></td>
+                            <td>${p.leaderName}</td>
+                            <td style="font-size:0.8rem;">${p.challenge}</td>
+                            <td style="font-size:0.8rem;">${members}</td>
+                            <td>${p.fileName ? `<button onclick="adminDownloadFile('${p.userEmail}')" class="admin-dl-btn"><i class="fas fa-download"></i> ${p.fileName.substring(0,20)}${p.fileName.length>20?'...':''}</button>` : '<span style="color:var(--text-light)">-</span>'}</td>
+                            <td class="admin-actions">
+                                <button onclick="adminViewProject('${p.userEmail}')" class="admin-act-btn info"><i class="fas fa-eye"></i> عرض</button>
+                                <button onclick="adminDeleteProject('${p.userEmail}')" class="admin-act-btn danger"><i class="fas fa-trash-alt"></i> حذف</button>
+                            </td>
+                        </tr>`;
+                    }).join('') || '<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text-light);">لا توجد مشاريع</td></tr>'}
+                </tbody>
+            </table>
+        </div>`;
+    }
+
+    function renderRolesTab() {
+        const users = allUsers.filter(u => u.role !== 'admin');
+        const roles = ['فريق مشارك', 'محكّم', 'مرشد', 'منظم', 'مشرف'];
+        return `
+        <h2 class="admin-page-title"><i class="fas fa-user-shield"></i> توزيع الأدوار</h2>
+        <div class="admin-table-wrap">
+            <table class="admin-table">
+                <thead><tr><th>الاسم</th><th>الفريق</th><th>الدور الحالي</th><th>تغيير الدور</th></tr></thead>
+                <tbody>
+                    ${users.map(u => `<tr>
+                        <td><strong>${u.fullName}</strong></td>
+                        <td>${u.teamName}</td>
+                        <td><span class="admin-role-tag">${u.role || 'فريق مشارك'}</span></td>
+                        <td>
+                            <select onchange="changeRole('${u.email}', this.value)" class="admin-role-select">
+                                ${roles.map(r => `<option value="${r}" ${(u.role||'فريق مشارك')===r?'selected':''}>${r}</option>`).join('')}
+                            </select>
+                        </td>
+                    </tr>`).join('') || '<tr><td colspan="4" style="text-align:center;padding:30px;color:var(--text-light);">لا يوجد مستخدمون</td></tr>'}
+                </tbody>
+            </table>
+        </div>`;
+    }
+
+    async function renderSettingsTab() {
+        const s = await dbGet('settings', 'global') || { registrationOpen: true, registrationDate: '2026-03-01T00:00' };
+        document.getElementById('adminContent').innerHTML = `
+        <h2 class="admin-page-title"><i class="fas fa-cog"></i> إعدادات النظام</h2>
+        <div class="admin-settings-grid">
+            <div class="admin-setting-card">
+                <div class="admin-setting-head">
+                    <div><h3><i class="fas fa-door-open"></i> باب التسجيل</h3><p>التحكم في فتح أو إغلاق التسجيل الجديد (تسجيل الدخول يبقى متاحاً دائماً)</p></div>
+                    <label class="admin-switch"><input type="checkbox" id="regToggle" ${s.registrationOpen ? 'checked' : ''} onchange="toggleRegistration(this.checked)"><span class="admin-slider"></span></label>
+                </div>
+                <div class="admin-setting-status" id="regStatus" style="color:${s.registrationOpen ? '#22c55e' : '#ef4444'}">
+                    <i class="fas fa-${s.registrationOpen ? 'check-circle' : 'times-circle'}"></i> 
+                    التسجيل الجديد ${s.registrationOpen ? 'مفتوح' : 'مغلق'} (تسجيل الدخول متاح دائماً)
+                </div>
+            </div>
+            <div class="admin-setting-card">
+                <div class="admin-setting-head">
+                    <div><h3><i class="fas fa-calendar-alt"></i> تاريخ فتح التسجيل</h3><p>تحديد تاريخ العد التنازلي الذي يظهر في الصفحة الرئيسية</p></div>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:14px;align-items:center;flex-wrap:wrap;">
+                    <input type="datetime-local" id="regDateInput" value="${s.registrationDate || '2026-03-01T00:00'}" style="padding:10px 14px;border:1px solid rgba(39,103,196,0.15);border-radius:10px;font-family:'Tajawal',sans-serif;font-size:0.9rem;direction:ltr;">
+                    <button onclick="saveRegDate()" class="admin-setting-btn blue"><i class="fas fa-save"></i> حفظ التاريخ</button>
+                </div>
+            </div>
+            <div class="admin-setting-card">
+                <div class="admin-setting-head">
+                    <div><h3><i class="fas fa-database"></i> قاعدة البيانات</h3><p>تصدير جميع البيانات أو مسح قاعدة البيانات</p></div>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+                    <button onclick="exportData()" class="admin-setting-btn blue"><i class="fas fa-file-export"></i> تصدير البيانات (JSON)</button>
+                    <button onclick="clearAllData()" class="admin-setting-btn red"><i class="fas fa-exclamation-triangle"></i> مسح جميع البيانات</button>
+                </div>
+            </div>
+            <div class="admin-setting-card">
+                <div class="admin-setting-head">
+                    <div><h3><i class="fas fa-key"></i> بيانات الدخول للمسؤول</h3><p>بيانات الدخول الافتراضية لمسؤول النظام</p></div>
+                </div>
+                <div style="background:rgba(39,103,196,0.04);border-radius:10px;padding:14px;margin-top:14px;font-size:0.9rem;">
+                    <div style="margin-bottom:8px;"><strong>البريد:</strong> <code style="direction:ltr">admin@waqfhackathon.om</code></div>
+                    <div><strong>كلمة المرور:</strong> <code style="direction:ltr">Admin@2026</code></div>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    async function saveRegDate() {
+        const date = document.getElementById('regDateInput').value;
+        const s = await dbGet('settings', 'global') || { id: 'global' };
+        s.registrationDate = date;
+        await dbPut('settings', s);
+        alert('تم حفظ التاريخ بنجاح');
+        startCountdown();
+    }
+
+    // Admin Actions
+    async function adminAction(action, email) {
+        const user = await dbGet('users', email);
+        if (!user) return;
+        if (action === 'suspend') {
+            if (!confirm(`إيقاف حساب ${user.fullName}؟`)) return;
+            user.status = 'suspended'; await dbPut('users', user);
+        } else if (action === 'activate') {
+            user.status = 'active'; await dbPut('users', user);
+        } else if (action === 'exclude') {
+            if (!confirm(`استبعاد فريق ${user.teamName}؟ سيتم تعليق حسابهم.`)) return;
+            user.status = 'excluded'; await dbPut('users', user);
+        } else if (action === 'delete') {
+            if (!confirm(`حذف حساب ${user.fullName} نهائياً؟ هذا الإجراء لا يمكن التراجع عنه.`)) return;
+            await dbDelete('users', email);
+            try { await dbDelete('projects', email); } catch(e) {}
+        }
+        switchAdminTab(adminTab);
+    }
+
+    async function changeRole(email, role) {
+        const user = await dbGet('users', email);
+        if (user) { user.role = role; await dbPut('users', user); }
+        switchAdminTab('roles');
+    }
+
+    async function toggleRegistration(open) {
+        const s = await dbGet('settings', 'global') || { id: 'global' };
+        s.registrationOpen = open;
+        await dbPut('settings', s);
+        const st = document.getElementById('regStatus');
+        st.style.color = open ? '#22c55e' : '#ef4444';
+        st.innerHTML = `<i class="fas fa-${open ? 'check-circle' : 'times-circle'}"></i> التسجيل ${open ? 'مفتوح' : 'مغلق'}`;
+    }
+
+    async function adminDownloadFile(email) {
+        const p = await dbGet('projects', email);
+        if (p?.fileUrl) {
+            window.open(p.fileUrl, '_blank');
+        } else if (p?.fileName) {
+            alert('الملف غير متوفر للتنزيل');
+        }
+    }
+
+    async function adminViewProject(email) {
+        const p = await dbGet('projects', email);
+        const u = await dbGet('users', email);
+        if (!p) return;
+        alert(`
+الفريق: ${u?.teamName || '-'}
+القائد: ${p.leaderName}
+العضو 2: ${p.member2}
+العضو 3: ${p.member3}
+${p.member4 ? 'العضو 4: ' + p.member4 : ''}
+${p.member5 ? 'العضو 5: ' + p.member5 : ''}
+المحور: ${p.challenge}
+الفكرة: ${p.projectIdea}
+المرفق: ${p.fileName || 'لا يوجد'}
+        `.trim());
+    }
+
+    async function adminDeleteProject(email) {
+        if (!confirm('حذف هذا المشروع نهائياً؟')) return;
+        await dbDelete('projects', email);
+        switchAdminTab('projects');
+    }
+
+    async function exportData() {
+        const users = (await dbGetAll('users')).filter(u => u.role !== 'admin');
+        const projects = await dbGetAll('projects');
+        const data = { exportDate: new Date().toISOString(), users, projects };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `waqf-hackathon-export-${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+    }
+
+    async function clearAllData() {
+        if (!confirm('تحذير: سيتم مسح جميع بيانات الفرق والمشاريع! هل أنت متأكد؟')) return;
+        if (!confirm('تأكيد نهائي: هذا الإجراء لا يمكن التراجع عنه!')) return;
+        const users = await dbGetAll('users');
+        for (const u of users) {
+            if (u.role !== 'admin') {
+                await dbDelete('users', u.email);
+                try { await dbDelete('projects', u.email); } catch(e) {}
+            }
+        }
+        switchAdminTab('dashboard');
+    }
+    // ===== COUNTDOWN TIMER =====
+    let countdownInterval;
+    async function startCountdown() {
+        try {
+            const s = await dbGet('settings', 'global');
+            const wrap = document.getElementById('countdownWrap');
+            const label = document.getElementById('countdownLabel');
+            if (!s) { wrap.classList.add('hidden'); return; }
+
+            if (s.registrationOpen) {
+                label.innerHTML = '<i class="fas fa-door-open"></i> باب التسجيل مفتوح الآن!';
+                label.classList.add('open');
+                document.querySelectorAll('.countdown-box').forEach(b => b.style.display = 'none');
+                document.querySelectorAll('.countdown-sep').forEach(b => b.style.display = 'none');
+                wrap.classList.remove('hidden');
+                return;
+            }
+
+            const targetDate = new Date(s.registrationDate || '2026-03-01T00:00:00');
+            label.innerHTML = '<i class="fas fa-clock"></i> الوقت المتبقي لفتح باب التسجيل';
+            label.classList.remove('open');
+            document.querySelectorAll('.countdown-box').forEach(b => b.style.display = '');
+            document.querySelectorAll('.countdown-sep').forEach(b => b.style.display = '');
+            wrap.classList.remove('hidden');
+
+            if (countdownInterval) clearInterval(countdownInterval);
+            countdownInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const dist = targetDate.getTime() - now;
+                if (dist <= 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('cdDays').textContent = '00';
+                    document.getElementById('cdHours').textContent = '00';
+                    document.getElementById('cdMins').textContent = '00';
+                    document.getElementById('cdSecs').textContent = '00';
+                    label.innerHTML = '<i class="fas fa-check-circle"></i> حان وقت التسجيل!';
+                    label.classList.add('open');
+                    return;
+                }
+                const days = Math.floor(dist / 86400000);
+                const hours = Math.floor((dist % 86400000) / 3600000);
+                const mins = Math.floor((dist % 3600000) / 60000);
+                const secs = Math.floor((dist % 60000) / 1000);
+                document.getElementById('cdDays').textContent = String(days).padStart(2, '0');
+                document.getElementById('cdHours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('cdMins').textContent = String(mins).padStart(2, '0');
+                document.getElementById('cdSecs').textContent = String(secs).padStart(2, '0');
+            }, 1000);
+        } catch(e) { console.log('Countdown init pending...'); }
+    }
+    setTimeout(startCountdown, 600);
+</script>
+
+<!-- ===== ADMIN PANEL ===== -->
+<div id="adminPanel" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:20000;background:var(--bg-light);flex-direction:row-reverse;">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-header">
+            <img src="assets/waqf-logo.png" alt="" style="height:48px;">
+            <div style="font-family:'Cairo',sans-serif;font-weight:800;font-size:0.95rem;color:white;margin-top:8px;">لوحة تحكم المسؤول</div>
+        </div>
+        <nav class="admin-nav">
+            <div class="admin-nav-item active" data-tab="dashboard" onclick="switchAdminTab('dashboard')"><i class="fas fa-tachometer-alt"></i><span>لوحة المعلومات</span></div>
+            <div class="admin-nav-item" data-tab="teams" onclick="switchAdminTab('teams')"><i class="fas fa-users-cog"></i><span>إدارة الفرق</span></div>
+            <div class="admin-nav-item" data-tab="projects" onclick="switchAdminTab('projects')"><i class="fas fa-project-diagram"></i><span>المشاريع</span></div>
+            <div class="admin-nav-item" data-tab="roles" onclick="switchAdminTab('roles')"><i class="fas fa-user-shield"></i><span>الأدوار</span></div>
+            <div class="admin-nav-item" data-tab="settings" onclick="switchAdminTab('settings')"><i class="fas fa-cog"></i><span>الإعدادات</span></div>
+        </nav>
+        <div class="admin-sidebar-footer">
+            <button onclick="closeAdminPanel()" class="admin-exit-btn"><i class="fas fa-home"></i> العودة للموقع</button>
+            <button onclick="logoutUser();closeAdminPanel();" class="admin-exit-btn" style="opacity:0.6;"><i class="fas fa-sign-out-alt"></i> تسجيل خروج</button>
+        </div>
+    </aside>
+    <!-- Content -->
+    <main class="admin-main" id="adminContent"></main>
+</div>
+
+<style>
+    /* Dashboard info rows */
+    .dash-info-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(39,103,196,0.06); font-size:0.9rem; }
+    .dash-info-row:last-child { border-bottom:none; }
+    .dash-info-row i { color:var(--primary-orange); width:18px; text-align:center; flex-shrink:0; }
+    .dash-info-row strong { color:var(--text-dark); min-width:110px; flex-shrink:0; }
+    .dash-info-row span { color:var(--text-light); flex:1; }
+
+    /* ===== ADMIN PANEL STYLES ===== */
+    .admin-sidebar { width:260px; background:linear-gradient(180deg, #0d1b33 0%, #142850 100%); display:flex; flex-direction:column; flex-shrink:0; }
+    .admin-sidebar-header { padding:28px 20px 20px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .admin-nav { flex:1; padding:16px 12px; overflow-y:auto; }
+    .admin-nav-item { display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:12px; color:rgba(255,255,255,0.55); cursor:pointer; transition:all 0.2s; font-weight:600; font-size:0.9rem; margin-bottom:4px; }
+    .admin-nav-item:hover { background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.85); }
+    .admin-nav-item.active { background:rgba(39,103,196,0.25); color:white; }
+    .admin-nav-item i { width:20px; text-align:center; font-size:0.95rem; }
+    .admin-sidebar-footer { padding:16px 12px; border-top:1px solid rgba(255,255,255,0.06); }
+    .admin-exit-btn { width:100%; padding:10px; background:rgba(255,255,255,0.06); border:none; border-radius:10px; color:rgba(255,255,255,0.7); font-family:'Tajawal',sans-serif; font-weight:600; font-size:0.85rem; cursor:pointer; margin-bottom:6px; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:8px; }
+    .admin-exit-btn:hover { background:rgba(255,255,255,0.12); color:white; }
+    .admin-main { flex:1; overflow-y:auto; padding:32px; }
+    .admin-page-title { font-family:'Cairo',sans-serif; font-size:1.5rem; font-weight:900; color:var(--text-dark); margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+    .admin-page-title i { color:var(--primary-blue); }
+    .admin-count { background:var(--primary-blue); color:white; font-size:0.8rem; padding:2px 12px; border-radius:50px; margin-right:8px; }
+
+    /* Stats */
+    .admin-stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+    .admin-stat-card { background:white; border-radius:16px; padding:24px; display:flex; align-items:center; gap:16px; box-shadow:0 2px 12px rgba(0,0,0,0.04); }
+    .admin-stat-icon { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+    .admin-stat-card.blue .admin-stat-icon { background:rgba(39,103,196,0.1); color:#2767c4; }
+    .admin-stat-card.green .admin-stat-icon { background:rgba(34,197,94,0.1); color:#22c55e; }
+    .admin-stat-card.orange .admin-stat-icon { background:rgba(229,118,26,0.1); color:#e5761a; }
+    .admin-stat-card.red .admin-stat-icon { background:rgba(239,68,68,0.1); color:#ef4444; }
+    .admin-stat-num { font-family:'Cairo',sans-serif; font-size:1.8rem; font-weight:900; color:var(--text-dark); line-height:1; }
+    .admin-stat-label { color:var(--text-light); font-size:0.85rem; font-weight:600; }
+
+    /* Charts Row */
+    .admin-charts-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .admin-chart-card { background:white; border-radius:16px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.04); }
+    .admin-chart-card h3 { font-family:'Cairo',sans-serif; font-weight:800; font-size:1.05rem; color:var(--text-dark); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+    .admin-chart-card h3 i { color:var(--primary-orange); }
+
+    .admin-axis-item { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+    .admin-axis-name { font-size:0.8rem; font-weight:600; color:var(--text-dark); min-width:140px; flex-shrink:0; }
+    .admin-axis-bar { flex:1; height:24px; background:rgba(39,103,196,0.06); border-radius:12px; overflow:hidden; }
+    .admin-axis-fill { height:100%; background:var(--gradient-blue); border-radius:12px; transition:width 0.5s ease; min-width:20px; }
+    .admin-axis-count { font-family:'Cairo',sans-serif; font-weight:800; font-size:0.95rem; color:var(--primary-blue); min-width:24px; text-align:center; }
+
+    .admin-recent-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(0,0,0,0.04); }
+    .admin-recent-item:last-child { border-bottom:none; }
+    .admin-recent-avatar { width:38px; height:38px; border-radius:50%; background:var(--gradient-orange); color:white; display:flex; align-items:center; justify-content:center; font-family:'Cairo',sans-serif; font-weight:800; font-size:0.9rem; flex-shrink:0; }
+    .admin-recent-item strong { font-size:0.9rem; }
+    .admin-recent-item > div:nth-child(2) { flex:1; }
+
+    .admin-status-badge { font-size:0.75rem; font-weight:700; padding:3px 12px; border-radius:50px; white-space:nowrap; }
+    .admin-status-badge.active { background:rgba(34,197,94,0.1); color:#16a34a; }
+    .admin-status-badge.suspended { background:rgba(245,158,11,0.1); color:#d97706; }
+    .admin-status-badge.excluded { background:rgba(239,68,68,0.1); color:#ef4444; }
+
+    /* Table */
+    .admin-table-wrap { background:white; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.04); overflow-x:auto; }
+    .admin-table { width:100%; border-collapse:collapse; font-size:0.9rem; }
+    .admin-table thead { background:rgba(39,103,196,0.03); }
+    .admin-table th { padding:14px 16px; text-align:right; font-weight:700; color:var(--text-dark); font-size:0.8rem; border-bottom:2px solid rgba(39,103,196,0.08); white-space:nowrap; }
+    .admin-table td { padding:12px 16px; border-bottom:1px solid rgba(0,0,0,0.04); color:var(--text-dark); }
+    .admin-table tr:hover { background:rgba(39,103,196,0.02); }
+    .admin-role-tag { background:rgba(39,103,196,0.08); color:var(--primary-blue); padding:3px 12px; border-radius:50px; font-size:0.75rem; font-weight:700; white-space:nowrap; }
+    .admin-actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .admin-act-btn { border:none; border-radius:8px; cursor:pointer; font-size:0.8rem; display:inline-flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s; padding:8px 14px; font-family:'Tajawal',sans-serif; font-weight:600; white-space:nowrap; }
+    .admin-act-btn.info { background:rgba(39,103,196,0.08); color:#2767c4; }
+    .admin-act-btn.info:hover { background:#2767c4; color:white; }
+    .admin-act-btn.warn { background:rgba(245,158,11,0.1); color:#d97706; }
+    .admin-act-btn.warn:hover { background:#d97706; color:white; }
+    .admin-act-btn.ok { background:rgba(34,197,94,0.1); color:#16a34a; }
+    .admin-act-btn.ok:hover { background:#16a34a; color:white; }
+    .admin-act-btn.danger { background:rgba(239,68,68,0.08); color:#ef4444; }
+    .admin-act-btn.danger:hover { background:#ef4444; color:white; }
+    .admin-dl-btn { background:rgba(39,103,196,0.06); border:none; color:var(--primary-blue); padding:4px 10px; border-radius:6px; font-family:'Tajawal',sans-serif; font-size:0.75rem; font-weight:600; cursor:pointer; max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .admin-dl-btn:hover { background:var(--primary-blue); color:white; }
+    .admin-role-select { padding:6px 10px; border:1px solid rgba(39,103,196,0.15); border-radius:8px; font-family:'Tajawal',sans-serif; font-size:0.85rem; background:white; cursor:pointer; direction:rtl; }
+
+    /* Settings */
+    .admin-settings-grid { display:grid; gap:16px; }
+    .admin-setting-card { background:white; border-radius:16px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.04); }
+    .admin-setting-head { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .admin-setting-head h3 { font-family:'Cairo',sans-serif; font-weight:800; font-size:1.05rem; color:var(--text-dark); display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+    .admin-setting-head h3 i { color:var(--primary-orange); }
+    .admin-setting-head p { color:var(--text-light); font-size:0.85rem; }
+    .admin-setting-status { margin-top:12px; font-weight:700; font-size:0.9rem; }
+    .admin-setting-btn { padding:10px 18px; border:none; border-radius:10px; font-family:'Tajawal',sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:all 0.2s; }
+    .admin-setting-btn.blue { background:rgba(39,103,196,0.1); color:#2767c4; }
+    .admin-setting-btn.blue:hover { background:#2767c4; color:white; }
+    .admin-setting-btn.red { background:rgba(239,68,68,0.08); color:#ef4444; }
+    .admin-setting-btn.red:hover { background:#ef4444; color:white; }
+
+    /* Toggle Switch */
+    .admin-switch { position:relative; width:52px; height:28px; flex-shrink:0; }
+    .admin-switch input { opacity:0; width:0; height:0; }
+    .admin-slider { position:absolute; top:0; left:0; right:0; bottom:0; background:#ccc; border-radius:28px; cursor:pointer; transition:0.3s; }
+    .admin-slider:before { content:''; position:absolute; height:22px; width:22px; left:3px; bottom:3px; background:white; border-radius:50%; transition:0.3s; }
+    .admin-switch input:checked + .admin-slider { background:#22c55e; }
+    .admin-switch input:checked + .admin-slider:before { transform:translateX(24px); }
+
+    /* Responsive */
+    @media(max-width:768px) {
+        #adminPanel { flex-direction:column !important; }
+        .admin-sidebar { width:100%; flex-direction:row; flex-wrap:wrap; align-items:center; }
+        .admin-sidebar-header { padding:12px; display:flex; align-items:center; gap:10px; border-bottom:none; flex:1; }
+        .admin-sidebar-header img { height:32px; }
+        .admin-sidebar-header div { font-size:0.8rem; margin:0; }
+        .admin-nav { display:flex; flex-wrap:nowrap; overflow-x:auto; padding:0 8px 8px; gap:4px; }
+        .admin-nav-item { padding:8px 12px; font-size:0.75rem; white-space:nowrap; }
+        .admin-nav-item span { display:none; }
+        .admin-nav-item i { margin:0; }
+        .admin-sidebar-footer { display:flex; padding:8px; gap:6px; border-top:none; }
+        .admin-exit-btn { font-size:0.75rem; padding:6px; }
+        .admin-main { padding:16px; }
+        .admin-stats-grid { grid-template-columns:repeat(2,1fr); }
+        .admin-charts-row { grid-template-columns:1fr; }
+        .admin-axis-name { min-width:80px; font-size:0.7rem; }
+        .dash-info-row { flex-wrap:wrap; } .dash-info-row strong { min-width:auto; }
+    }
+</style>
+
+</body>
+</html>
