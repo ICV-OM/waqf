@@ -2432,7 +2432,7 @@
             <h4>تواصل معنا</h4>
             <div class="contact-item">
                 <i class="fas fa-envelope"></i>
-                info@waqfhackathon.om
+                <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="167f78707956617767707e77757d77627e797838797b">[email&#160;protected]</a>
             </div>
             <div class="contact-item">
                 <i class="fas fa-map-marker-alt"></i>
@@ -2698,12 +2698,16 @@
                     <!-- File Section -->
                     <div id="dashFileSection" style="margin-top:16px;background:var(--bg-light);border-radius:14px;padding:20px;border:1px solid rgba(39,103,196,0.06);display:none;">
                         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="downloadMyFile()">
                                 <i class="fas fa-paperclip" style="color:var(--primary-orange);font-size:1.1rem;"></i>
                                 <span style="font-weight:700;color:var(--text-dark);">المرفق:</span>
-                                <span id="dashFileName" style="color:var(--primary-blue);font-weight:600;"></span>
+                                <span id="dashFileName" style="color:var(--primary-blue);font-weight:600;text-decoration:underline;"></span>
+                                <i class="fas fa-download" style="color:var(--primary-blue);font-size:0.8rem;"></i>
                             </div>
                             <div style="display:flex;gap:8px;">
+                                <button onclick="downloadMyFile()" style="background:rgba(34,197,94,0.08);border:none;color:#16a34a;padding:6px 14px;border-radius:8px;font-family:'Tajawal',sans-serif;font-weight:600;font-size:0.8rem;cursor:pointer;">
+                                    <i class="fas fa-download"></i> تنزيل
+                                </button>
                                 <button onclick="replaceFile()" style="background:rgba(39,103,196,0.08);border:none;color:var(--primary-blue);padding:6px 14px;border-radius:8px;font-family:'Tajawal',sans-serif;font-weight:600;font-size:0.8rem;cursor:pointer;">
                                     <i class="fas fa-sync-alt"></i> استبدال
                                 </button>
@@ -2740,7 +2744,7 @@
     </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ===== Navbar & UI =====
     window.addEventListener('scroll', () => {
         document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
@@ -2787,17 +2791,36 @@
             return r.ok;
         },
         async uploadFile(bucket, path, file) {
-            const r = await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}/${path}`, {
-                method: 'POST', headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
-                body: file
+            try {
+                // Try Supabase Storage first
+                const r = await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}/${path}`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Content-Type': file.type || 'application/octet-stream',
+                        'x-upsert': 'true'
+                    },
+                    body: file
+                });
+                if (r.ok) {
+                    return `${SUPABASE_URL}/storage/v1/object/public/${bucket}/${path}`;
+                }
+                console.log('Storage upload failed, using base64 fallback');
+            } catch(e) { console.log('Storage not available'); }
+            // Fallback: convert to base64 data URL
+            return new Promise((res) => {
+                const reader = new FileReader();
+                reader.onload = () => res(reader.result);
+                reader.readAsDataURL(file);
             });
-            if (!r.ok) return null;
-            return `${SUPABASE_URL}/storage/v1/object/public/${bucket}/${path}`;
         },
         async deleteFile(bucket, path) {
-            await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}/${path}`, {
-                method: 'DELETE', headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-            });
+            try {
+                await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}/${path}`, {
+                    method: 'DELETE', headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+                });
+            } catch(e) {}
         }
     };
 
@@ -3080,9 +3103,8 @@
         let fileUrl = null, fileName = null;
         if (selectedFile) {
             fileName = selectedFile.name;
-            const path = `${currentUser.email}/${Date.now()}_${fileName}`;
+            const path = `${currentUser.email.replace(/[@.]/g,'_')}/${Date.now()}_${fileName}`;
             fileUrl = await SB.uploadFile('project-files', path, selectedFile);
-            if (!fileUrl) { fileUrl = null; } // fallback if storage not set up
         } else if (editMode) {
             const old = await dbGet('projects', currentUser.email);
             if (old) { fileUrl = old.fileUrl; fileName = old.fileName; }
@@ -3138,12 +3160,21 @@
         if (p) { p.fileName = null; p.fileUrl = null; await dbPut('projects', p); }
         openDashboard();
     }
+    async function downloadMyFile() {
+        const p = await dbGet('projects', currentUser.email);
+        if (!p?.fileUrl) return;
+        if (p.fileUrl.startsWith('data:')) {
+            const a = document.createElement('a'); a.href = p.fileUrl; a.download = p.fileName || 'file'; a.click();
+        } else {
+            window.open(p.fileUrl, '_blank');
+        }
+    }
     function replaceFile() { document.getElementById('replaceFileInput').click(); }
     async function handleReplaceFile(event) {
         const file = event.target.files[0];
         if (!file) return;
         if (file.size > 10 * 1024 * 1024) { alert('حجم الملف يتجاوز 10MB'); return; }
-        const path = `${currentUser.email}/${Date.now()}_${file.name}`;
+        const path = `${currentUser.email.replace(/[@.]/g,'_')}/${Date.now()}_${file.name}`;
         const fileUrl = await SB.uploadFile('project-files', path, file);
         const p = await dbGet('projects', currentUser.email);
         if (p) { p.fileName = file.name; p.fileUrl = fileUrl; await dbPut('projects', p); }
@@ -3313,7 +3344,12 @@
     function renderTeamsTab() {
         const teams = allUsers.filter(u => u.role !== 'admin');
         return `
-        <h2 class="admin-page-title"><i class="fas fa-users-cog"></i> إدارة الفرق <span class="admin-count">${teams.length}</span></h2>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+            <h2 class="admin-page-title" style="margin-bottom:0;"><i class="fas fa-users-cog"></i> إدارة الفرق <span class="admin-count">${teams.length}</span></h2>
+            <button onclick="exportToExcel()" class="admin-setting-btn blue" style="font-size:0.9rem;padding:10px 22px;">
+                <i class="fas fa-file-excel"></i> تصدير إلى Excel
+            </button>
+        </div>
         <div class="admin-table-wrap">
             <table class="admin-table">
                 <thead><tr><th>الفريق</th><th>القائد</th><th>البريد</th><th>الدور</th><th>الحالة</th><th>التاريخ</th><th>إجراءات</th></tr></thead>
@@ -3342,7 +3378,12 @@
 
     function renderProjectsTab() {
         return `
-        <h2 class="admin-page-title"><i class="fas fa-project-diagram"></i> المشاريع <span class="admin-count">${allProjects.length}</span></h2>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+            <h2 class="admin-page-title" style="margin-bottom:0;"><i class="fas fa-project-diagram"></i> المشاريع <span class="admin-count">${allProjects.length}</span></h2>
+            <button onclick="exportToExcel()" class="admin-setting-btn blue" style="font-size:0.9rem;padding:10px 22px;">
+                <i class="fas fa-file-excel"></i> تصدير إلى Excel
+            </button>
+        </div>
         <div class="admin-table-wrap">
             <table class="admin-table">
                 <thead><tr><th>الفريق</th><th>القائد</th><th>المحور</th><th>الأعضاء</th><th>المرفق</th><th>إجراءات</th></tr></thead>
@@ -3482,9 +3523,18 @@
 
     async function adminDownloadFile(email) {
         const p = await dbGet('projects', email);
-        if (p?.fileUrl) {
-            window.open(p.fileUrl, '_blank');
-        } else if (p?.fileName) {
+        if (!p?.fileUrl && !p?.fileName) return;
+        const url = p.fileUrl;
+        if (url) {
+            if (url.startsWith('data:')) {
+                // Base64 file - trigger download
+                const a = document.createElement('a');
+                a.href = url; a.download = p.fileName || 'file'; a.click();
+            } else {
+                // Supabase Storage URL
+                window.open(url, '_blank');
+            }
+        } else {
             alert('الملف غير متوفر للتنزيل');
         }
     }
@@ -3520,6 +3570,42 @@ ${p.member5 ? 'العضو 5: ' + p.member5 : ''}
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
         a.download = `waqf-hackathon-export-${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+    }
+
+    async function exportToExcel() {
+        const users = (await dbGetAll('users')).filter(u => u.role !== 'admin');
+        const projects = await dbGetAll('projects');
+
+        // Build CSV with BOM for Arabic support in Excel
+        const BOM = '\uFEFF';
+        const headers = ['اسم الفريق','قائد الفريق','البريد الإلكتروني','اسم المستخدم','المحور','فكرة المشروع','العضو الثاني','العضو الثالث','العضو الرابع','العضو الخامس','الدور','الحالة','المرفق','تاريخ التسجيل'];
+        const rows = users.map(u => {
+            const p = projects.find(pr => pr.userEmail === u.email);
+            const esc = (v) => `"${(v||'').replace(/"/g,'""')}"`;
+            return [
+                esc(u.teamName),
+                esc(p?.leaderName || u.fullName),
+                esc(u.email),
+                esc(u.username),
+                esc(p?.challenge || '-'),
+                esc(p?.projectIdea || '-'),
+                esc(p?.member2 || '-'),
+                esc(p?.member3 || '-'),
+                esc(p?.member4 || '-'),
+                esc(p?.member5 || '-'),
+                esc(u.role || 'فريق مشارك'),
+                esc(u.status === 'suspended' ? 'موقوف' : u.status === 'excluded' ? 'مستبعد' : 'نشط'),
+                esc(p?.fileName || 'لا يوجد'),
+                esc(new Date(u.createdAt).toLocaleDateString('ar-OM'))
+            ].join(',');
+        });
+
+        const csv = BOM + headers.join(',') + '\n' + rows.join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `هاكاثون-الوقف-المشاريع-${new Date().toISOString().slice(0,10)}.csv`;
         a.click();
     }
 
@@ -3729,11 +3815,4 @@ ${p.member5 ? 'العضو 5: ' + p.member5 : ''}
         .admin-exit-btn { font-size:0.75rem; padding:6px; }
         .admin-main { padding:16px; }
         .admin-stats-grid { grid-template-columns:repeat(2,1fr); }
-        .admin-charts-row { grid-template-columns:1fr; }
-        .admin-axis-name { min-width:80px; font-size:0.7rem; }
-        .dash-info-row { flex-wrap:wrap; } .dash-info-row strong { min-width:auto; }
-    }
-</style>
-
-</body>
-</html>
+     
