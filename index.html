@@ -422,6 +422,68 @@
             100% { transform: translateX(-50%); }
         }
 
+        /* ===== GUIDE BANNER ===== */
+        .guide-banner { padding: 0 30px; margin: -10px auto 0; max-width: 1100px; }
+        .guide-banner-inner {
+            background: linear-gradient(135deg, #0d1b33 0%, #1a3a5c 50%, #2b5ea7 100%);
+            border-radius: 20px;
+            padding: 32px 40px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(13,27,51,0.2);
+        }
+        .guide-banner-inner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(232,135,43,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .guide-banner-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(232,135,43,0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        .guide-banner-text { flex: 1; }
+        .guide-banner-text h3 { color: white; font-size: 1.2rem; font-weight: 800; margin-bottom: 4px; }
+        .guide-banner-text p { color: rgba(255,255,255,0.65); font-size: 0.85rem; line-height: 1.5; }
+        .guide-banner-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--gold));
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(232,135,43,0.3);
+        }
+        .guide-banner-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,135,43,0.4); }
+        .guide-banner-btn i { font-size: 1.1rem; }
+        @media(max-width:768px) {
+            .guide-banner-inner { flex-direction: column; text-align: center; padding: 28px 24px; }
+            .guide-banner-icon { width: 52px; height: 52px; font-size: 1.3rem; }
+        }
+
         /* ===== CHALLENGES ===== */
         .challenges-grid {
             display: grid;
@@ -1922,6 +1984,23 @@
     </div>
 </div>
 
+<!-- ===== GUIDE BANNER ===== -->
+<div class="guide-banner reveal">
+    <div class="guide-banner-inner">
+        <div class="guide-banner-icon">
+            <i class="fas fa-book-open"></i>
+        </div>
+        <div class="guide-banner-text">
+            <h3>دليل هاكاثون الوقف الأول</h3>
+            <p>تعرّف على تفاصيل الهاكاثون، المحاور، معايير التحكيم، والجدول الزمني</p>
+        </div>
+        <a href="دليل_هاكاثون_الوقف_الأول.pdf" target="_blank" class="guide-banner-btn">
+            <i class="fas fa-file-pdf"></i>
+            اطّلع على الدليل
+        </a>
+    </div>
+</div>
+
 <!-- ===== CHALLENGES ===== -->
 <section class="section" id="challenges">
     <div class="section-container">
@@ -2203,22 +2282,12 @@
                         <p>تعزيز صورة الوزارة كجهة رائدة في دمج التقنية مع خدمة الدين والمجتمع</p>
                     </div>
                 </div>
-
-                <!-- دليل الهاكاثون -->
-                <div style="margin-top:32px;text-align:center;background:linear-gradient(135deg, rgba(39,103,196,0.06), rgba(232,135,43,0.06));border-radius:18px;padding:28px;border:1px solid rgba(39,103,196,0.1);">
-                    <div style="font-size:2.4rem;margin-bottom:10px;"><i class="fas fa-book-open" style="color:var(--primary-blue);"></i></div>
-                    <h3 style="font-family:'Cairo',sans-serif;font-size:1.2rem;font-weight:800;color:var(--primary-blue);margin-bottom:8px;">دليل هاكاثون الوقف الأول</h3>
-                    <p style="font-size:0.9rem;color:var(--text-light);margin-bottom:18px;">اطّلع على الدليل الكامل للهاكاثون: المحاور، المعايير، الجدول الزمني والتفاصيل</p>
-                    <a href="دليل_هاكاثون_الوقف_الأول.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:var(--gradient-blue);color:white;padding:12px 32px;border-radius:12px;text-decoration:none;font-family:'Tajawal',sans-serif;font-weight:700;font-size:1rem;transition:all 0.3s;box-shadow:0 4px 15px rgba(39,103,196,0.25);">
-                        <i class="fas fa-file-pdf" style="font-size:1.2rem;"></i>
-                        تحميل دليل الهاكاثون
-                        <i class="fas fa-download" style="font-size:0.85rem;opacity:0.8;"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- ===== PRIZES ===== -->
 <section class="section prizes-section" id="prizes">
     <div class="section-container">
         <div class="section-header reveal">
@@ -3624,21 +3693,26 @@ ${p.member5 ? 'العضو 5: ' + p.member5 : ''}
 
         // Build CSV with BOM for Arabic support in Excel
         const BOM = '\uFEFF';
-        const headers = ['اسم الفريق','قائد الفريق','البريد الإلكتروني','اسم المستخدم','المحور','فكرة المشروع','العضو الثاني','العضو الثالث','العضو الرابع','العضو الخامس','الدور','الحالة','المرفق','تاريخ التسجيل'];
+        const headers = ['اسم الفريق','قائد الفريق','هاتف القائد','البريد الإلكتروني','اسم المستخدم','المحور','فكرة المشروع','العضو الثاني','هاتف العضو الثاني','العضو الثالث','هاتف العضو الثالث','العضو الرابع','هاتف العضو الرابع','العضو الخامس','هاتف العضو الخامس','الدور','الحالة','المرفق','تاريخ التسجيل'];
         const rows = users.map(u => {
             const p = projects.find(pr => pr.userEmail === u.email);
             const esc = (v) => `"${(v||'').replace(/"/g,'""')}"`;
             return [
                 esc(u.teamName),
                 esc(p?.leaderName || u.fullName),
+                esc(p?.leaderPhone || '-'),
                 esc(u.email),
                 esc(u.username),
                 esc(p?.challenge || '-'),
                 esc(p?.projectIdea || '-'),
                 esc(p?.member2 || '-'),
+                esc(p?.phone2 || '-'),
                 esc(p?.member3 || '-'),
+                esc(p?.phone3 || '-'),
                 esc(p?.member4 || '-'),
+                esc(p?.phone4 || '-'),
                 esc(p?.member5 || '-'),
+                esc(p?.phone5 || '-'),
                 esc(u.role || 'فريق مشارك'),
                 esc(u.status === 'suspended' ? 'موقوف' : u.status === 'excluded' ? 'مستبعد' : 'نشط'),
                 esc(p?.fileName || 'لا يوجد'),
